@@ -27,7 +27,7 @@ describe('POST /peer/transactions', function () {
 				var bundled = [];
 
 				for (var i = 0; i < node.config.broadcasts.releaseLimit; i++) {
-					var transaction = node.lisk.transaction.createTransaction(
+					var transaction = node.onz.transaction.createTransaction(
 						node.randomAccount().address,
 						node.randomNumber(100000000, 1000000000),
 						node.gAccount.password
@@ -71,7 +71,7 @@ describe('POST /peer/transactions', function () {
 
 		before(function (done) {
 			node.async.doUntil(function (next) {
-				var transaction = node.lisk.transaction.createTransaction(
+				var transaction = node.onz.transaction.createTransaction(
 					node.randomAccount().address,
 					node.randomNumber(100000000, 1000000000),
 					node.gAccount.password

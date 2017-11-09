@@ -43,28 +43,28 @@ before(function (done) {
 });
 
 before(function (done) {
-	// Send to LISK to account 1 address
+	// Send to ONZ to account 1 address
 	setTimeout(function () {
-		var randomLISK = node.randomLISK();
-		var expectedFee = node.expectedFee(randomLISK);
+		var randomONZ = node.randomONZ();
+		var expectedFee = node.expectedFee(randomONZ);
 
 		putTransaction({
 			secret: node.gAccount.password,
-			amount: randomLISK,
+			amount: randomONZ,
 			recipientId: account.address
 		}, done);
 	}, 2000);
 });
 
 before(function (done) {
-	// Send to LISK to account 2 address
+	// Send to ONZ to account 2 address
 	setTimeout(function () {
-		var randomLISK = node.randomLISK();
-		var expectedFee = node.expectedFee(randomLISK);
+		var randomONZ = node.randomONZ();
+		var expectedFee = node.expectedFee(randomONZ);
 
 		putTransaction({
 			secret: node.gAccount.password,
-			amount: randomLISK,
+			amount: randomONZ,
 			recipientId: account2.address
 		}, done);
 	}, 2000);
@@ -481,9 +481,9 @@ describe('PUT /api/dapps/withdrawal', function () {
 
 	beforeEach(function (done) {
 		var randomAccount = node.randomTxAccount();
-		var keys = node.lisk.crypto.getKeys(randomAccount.password);
-		var recipientId = node.lisk.crypto.getAddress(keys.publicKey);
-		var transaction = node.lisk.transaction.createTransaction(randomAccount.address, 100000000, account.password);
+		var keys = node.onz.crypto.getKeys(randomAccount.password);
+		var recipientId = node.onz.crypto.getAddress(keys.publicKey);
+		var transaction = node.onz.transaction.createTransaction(randomAccount.address, 100000000, account.password);
 
 		validParams = {
 			secret: account.password,

@@ -31,8 +31,8 @@ describe('transactions', function () {
 		var testBody;
 
 		beforeEach(function () {
-			var account1PublicKey = node.lisk.crypto.getKeys(node.randomPassword()).publicKey;
-			var account2PublicKey = node.lisk.crypto.getKeys(node.randomPassword()).publicKey;
+			var account1PublicKey = node.onz.crypto.getKeys(node.randomPassword()).publicKey;
+			var account2PublicKey = node.onz.crypto.getKeys(node.randomPassword()).publicKey;
 
 			testBody = {
 				blockId: '1465651642158264047',
@@ -46,8 +46,8 @@ describe('transactions', function () {
 				fee: 20,
 				senderPublicKeys: [account1PublicKey, account2PublicKey],
 				recipientPublicKeys: [account1PublicKey, account2PublicKey],
-				senderIds: [node.lisk.crypto.getAddress(account1PublicKey), node.lisk.crypto.getAddress(account2PublicKey)],
-				recipientIds: [node.lisk.crypto.getAddress(account1PublicKey), node.lisk.crypto.getAddress(account2PublicKey)],
+				senderIds: [node.onz.crypto.getAddress(account1PublicKey), node.onz.crypto.getAddress(account2PublicKey)],
+				recipientIds: [node.onz.crypto.getAddress(account1PublicKey), node.onz.crypto.getAddress(account2PublicKey)],
 				fromHeight: 1,
 				toHeight: 2,
 				fromTimestamp: 0,

@@ -10,5 +10,5 @@ tmp
 public/node_modules
 public/bower_components
 public/static
-test/lisk-js
+test/onz-js
 helpers/bignum.js

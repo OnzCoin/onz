@@ -1,4 +1,4 @@
-/* Lisk Memory Tables
+/* Onz Memory Tables
  *
  */
 

@@ -102,10 +102,10 @@ describe('peers', function () {
 			removeAll();
 		});
 
-		it('should not insert new peer with lisk-js-api os', function () {
+		it('should not insert new peer with onz-js-api os', function () {
 			removeAll();
 			var modifiedPeer = _.clone(randomPeer);
-			modifiedPeer.os = 'lisk-js-api';
+			modifiedPeer.os = 'onz-js-api';
 			peers.upsert(modifiedPeer);
 			expect(peers.list().length).equal(0);
 			removeAll();

@@ -1,7 +1,7 @@
 [submodule "public"]
 	path = public
-	url = https://github.com/LiskHQ/lisk-ui.git
-[submodule "test/lisk-js"]
-	path = test/lisk-js
-	url = https://github.com/LiskHQ/lisk-js.git
+	url = https://github.com/OnzCoin/onz-ui.git
+[submodule "test/onz-js"]
+	path = test/onz-js
+	url = https://github.com/OnzCoin/onz-js.git
 	branch = 0.4.5
