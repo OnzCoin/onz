@@ -79,7 +79,9 @@ const options4 = {
               /lisk/g,
               /Lisk/g,
               /LISK/g,
-              /onz.io/g
+              /onz.io/g,
+              /8000/g,
+              /7000/g
           ],
     to:   [
               'Copyright © 2017-2018 Onz Coin Foundation',
@@ -87,7 +89,9 @@ const options4 = {
               'onz',
               'Onz',
               'ONZ',
-              'onzcoin.com'
+              'onzcoin.com',
+              '11000',
+              '10998'
           ],
 };
 
