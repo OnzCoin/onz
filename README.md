@@ -1,6 +1,6 @@
 # Onz
 
-Onz is a next generation crypto-currency and decentralized application platform, written entirely in JavaScript. For more information please refer to our website: https://onz.io/.
+Onz is a next generation crypto-currency and decentralized application platform, written entirely in JavaScript. For more information please refer to our website: https://onzcoin.com/.
 
 [![Build Status](https://travis-ci.org/OnzCoin/onz.svg?branch=development)](https://travis-ci.org/OnzCoin/onz)
 [![Coverage Status](https://coveralls.io/repos/github/OnzCoin/onz/badge.svg?branch=development)](https://coveralls.io/github/OnzCoin/onz?branch=development)
@@ -38,7 +38,7 @@ Onz is a next generation crypto-currency and decentralized application platform,
 - Install PostgreSQL (version 9.6.2):
 
   ```
-  curl -sL "https://downloads.onz.io/scripts/setup_postgresql.Linux" | bash -
+  curl -sL "https://downloads.onzcoin.com/scripts/setup_postgresql.Linux" | bash -
   sudo -u postgres createuser --createdb $USER
   createdb onz_test
   createdb onz_main
@@ -71,7 +71,7 @@ npm install
 Install Onz Node, a specialized version of Node.js used to execute dapps within a virtual machine:
 
 ```
-wget https://downloads.onz.io/onz-node/onz-node-Linux-x86_64.tar.gz
+wget https://downloads.onzcoin.com/onz-node/onz-node-Linux-x86_64.tar.gz
 tar -zxvf onz-node-Linux-x86_64.tar.gz
 ```
 
