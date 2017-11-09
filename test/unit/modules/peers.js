@@ -214,9 +214,9 @@ describe('peers', function () {
 			expect(peers.acceptable([privatePeer])).that.is.an('array').and.to.be.empty;
 		});
 
-		it('should not accept peer with lisk-js-api os', function () {
+		it('should not accept peer with onz-js-api os', function () {
 			var privatePeer = _.clone(randomPeer);
-			privatePeer.os = 'lisk-js-api';
+			privatePeer.os = 'onz-js-api';
 			expect(peers.acceptable([privatePeer])).that.is.an('array').and.to.be.empty;
 		});
 

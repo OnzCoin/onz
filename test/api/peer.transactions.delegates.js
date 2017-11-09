@@ -14,8 +14,8 @@ function postTransaction (transaction, done) {
 	});
 }
 
-function sendLISK (params, done) {
-	var transaction = node.lisk.transaction.createTransaction(params.recipientId, params.amount, params.secret);
+function sendONZ (params, done) {
+	var transaction = node.onz.transaction.createTransaction(params.recipientId, params.amount, params.secret);
 
 	postTransaction(transaction, function (err, res) {
 		node.expect(res.body).to.have.property('success').to.be.ok;
@@ -38,7 +38,7 @@ describe('POST /peer/transactions', function () {
 		});
 
 		it('using undefined transaction.asset', function (done) {
-			var transaction = node.lisk.delegate.createDelegate(node.randomPassword(), node.randomDelegateName());
+			var transaction = node.onz.delegate.createDelegate(node.randomPassword(), node.randomDelegateName());
 			transaction.fee = node.fees.delegateRegistrationFee;
 
 			delete transaction.asset;
@@ -53,7 +53,7 @@ describe('POST /peer/transactions', function () {
 		describe('when account has no funds', function () {
 
 			it('should fail', function (done) {
-				var transaction = node.lisk.delegate.createDelegate(node.randomPassword(), node.randomDelegateName());
+				var transaction = node.onz.delegate.createDelegate(node.randomPassword(), node.randomDelegateName());
 				transaction.fee = node.fees.delegateRegistrationFee;
 
 				postTransaction(transaction, function (err, res) {
@@ -78,9 +78,9 @@ describe('POST /peer/transactions', function () {
 			});
 
 			beforeEach(function (done) {
-				sendLISK({
+				sendONZ({
 					secret: node.gAccount.password,
-					amount: node.LISK,
+					amount: node.ONZ,
 					recipientId: account.address
 				}, function (err, res) {
 					node.expect(res.body).to.have.property('success').to.be.ok;
@@ -93,7 +93,7 @@ describe('POST /peer/transactions', function () {
 			});
 
 			it('using valid params should be ok', function (done) {
-				var validTransaction = node.lisk.delegate.createDelegate(validParams.secret, validParams.username);
+				var validTransaction = node.onz.delegate.createDelegate(validParams.secret, validParams.username);
 				node.post('/peer/transactions', {transaction: validTransaction}, function (err) {
 					node.expect(err).to.be.null;
 					node.onNewBlock(function () {
@@ -107,7 +107,7 @@ describe('POST /peer/transactions', function () {
 			});
 
 			it('using invalid username should fail', function (done) {
-				var transaction = node.lisk.delegate.createDelegate(account.password, crypto.randomBytes(64).toString('hex'));
+				var transaction = node.onz.delegate.createDelegate(account.password, crypto.randomBytes(64).toString('hex'));
 				transaction.fee = node.fees.delegateRegistrationFee;
 
 				postTransaction(transaction, function (err, res) {
@@ -118,7 +118,7 @@ describe('POST /peer/transactions', function () {
 
 			it('using uppercase username should fail', function (done) {
 				account.username = 'UPPER_DELEGATE';
-				var transaction = node.lisk.delegate.createDelegate(account.password, account.username);
+				var transaction = node.onz.delegate.createDelegate(account.password, account.username);
 
 				postTransaction(transaction, function (err, res) {
 					node.expect(res.body).to.have.property('success').to.be.not.ok;
@@ -128,7 +128,7 @@ describe('POST /peer/transactions', function () {
 
 			describe('when lowercased username already registered', function () {
 				it('using uppercase username should fail', function (done) {
-					var transaction = node.lisk.delegate.createDelegate(account.password, account.username.toUpperCase());
+					var transaction = node.onz.delegate.createDelegate(account.password, account.username.toUpperCase());
 
 					postTransaction(transaction, function (err, res) {
 						node.expect(res.body).to.have.property('success').to.be.not.ok;
@@ -139,7 +139,7 @@ describe('POST /peer/transactions', function () {
 
 			it('using lowercase username should be ok', function (done) {
 				account.username = node.randomDelegateName();
-				var transaction = node.lisk.delegate.createDelegate(account.password, account.username);
+				var transaction = node.onz.delegate.createDelegate(account.password, account.username);
 
 				postTransaction(transaction, function (err, res) {
 					node.expect(res.body).to.have.property('success').to.be.ok;
@@ -152,10 +152,10 @@ describe('POST /peer/transactions', function () {
 
 				it('should fail', function (done) {
 					account.username = node.randomDelegateName();
-					var transaction = node.lisk.delegate.createDelegate(account.password, account.username);
+					var transaction = node.onz.delegate.createDelegate(account.password, account.username);
 
 					account.username = node.randomDelegateName();
-					var transaction2 = node.lisk.delegate.createDelegate(account.password, account.username);
+					var transaction2 = node.onz.delegate.createDelegate(account.password, account.username);
 
 					postTransaction(transaction, function (err, res) {
 						node.expect(res.body).to.have.property('success').to.be.ok;
@@ -181,12 +181,12 @@ describe('POST /peer/transactions', function () {
 
 						node.async.series({
 							first: function (cb) {
-								firstTransaction = node.lisk.delegate.createDelegate(validParams.secret, validParams.username);
+								firstTransaction = node.onz.delegate.createDelegate(validParams.secret, validParams.username);
 								node.post('/peer/transactions', {transaction: firstTransaction}, cb);
 							},
 							second: function (cb) {
 								setTimeout(function () {
-									secondTransaction = node.lisk.delegate.createDelegate(validParams.secret, validParams.username);
+									secondTransaction = node.onz.delegate.createDelegate(validParams.secret, validParams.username);
 									node.post('/peer/transactions', {transaction: secondTransaction}, cb);
 								}, 1001);
 							}
@@ -228,9 +228,9 @@ describe('POST /peer/transactions', function () {
 					});
 
 					beforeEach(function (done) {
-						sendLISK({
+						sendONZ({
 							secret: node.gAccount.password,
-							amount: node.LISK,
+							amount: node.ONZ,
 							recipientId: secondAccount.address
 						}, function (err, res) {
 							node.expect(res.body).to.have.property('success').to.be.ok;
@@ -248,11 +248,11 @@ describe('POST /peer/transactions', function () {
 
 						node.async.series({
 							first: function (cb) {
-								firstTransaction = node.lisk.delegate.createDelegate(validParams.secret, validParams.username);
+								firstTransaction = node.onz.delegate.createDelegate(validParams.secret, validParams.username);
 								node.post('/peer/transactions', {transaction: firstTransaction}, cb);
 							},
 							second: function (cb) {
-								secondTransaction = node.lisk.delegate.createDelegate(validSecondParams.secret, validParams.username);
+								secondTransaction = node.onz.delegate.createDelegate(validSecondParams.secret, validParams.username);
 								node.post('/peer/transactions', {transaction: secondTransaction}, cb);
 							}
 						}, function (err) {

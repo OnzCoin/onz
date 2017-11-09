@@ -302,10 +302,10 @@ describe('transaction', function () {
 			expect(firstCalculation.equals(secondCalculation)).to.be.ok;
 		});
 
-		it('should return same result of getBytes using /logic/transaction and lisk-js package (without data field)', function () {
+		it('should return same result of getBytes using /logic/transaction and onz-js package (without data field)', function () {
 			var trsBytesFromLogic = transaction.getBytes(validTransaction);
-			var trsBytesFromLiskJs = node.lisk.crypto.getBytes(validTransaction);
-			expect(trsBytesFromLogic.equals(trsBytesFromLiskJs)).to.be.ok;
+			var trsBytesFromOnzJs = node.onz.crypto.getBytes(validTransaction);
+			expect(trsBytesFromLogic.equals(trsBytesFromOnzJs)).to.be.ok;
 		});
 
 		it('should skip signature, second signature for getting bytes', function () {

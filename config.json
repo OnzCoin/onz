@@ -4,7 +4,7 @@
     "version": "0.9.10",
     "minVersion": ">=0.9.5",
     "fileLogLevel": "info",
-    "logFileName": "logs/lisk.log",
+    "logFileName": "logs/onz.log",
     "consoleLogLevel": "none",
     "trustProxy": false,
     "topAccounts": false,
@@ -12,7 +12,7 @@
     "db": {
         "host": "localhost",
         "port": 5432,
-        "database": "lisk_main",
+        "database": "onz_main",
         "user": "",
         "password": "password",
         "poolSize": 95,
@@ -128,8 +128,8 @@
         "options": {
             "port": 443,
             "address": "0.0.0.0",
-            "key": "./ssl/lisk.key",
-            "cert": "./ssl/lisk.crt"
+            "key": "./ssl/onz.key",
+            "cert": "./ssl/onz.crt"
         }
     },
     "dapp": {

@@ -14,7 +14,7 @@ describe('multisignature', function () {
 	var library;
 
 	before('init sandboxed application', function (done) {
-		application.init({sandbox: {name: 'lisk_test_multisignatures'}}, function (scope) {
+		application.init({sandbox: {name: 'onz_test_multisignatures'}}, function (scope) {
 			library = scope;
 			done();
 		});
@@ -109,13 +109,13 @@ describe('multisignature', function () {
 		});
 	}
 
-	describe('with LISK sent to multisig account', function () {
+	describe('with ONZ sent to multisig account', function () {
 
 		var multisigAccount;
 
 		before('send funds to multisig account', function (done) {
 			multisigAccount = node.randomAccount();
-			var sendTransaction = node.lisk.transaction.createTransaction(multisigAccount.address, 1000000000*100, node.gAccount.password);
+			var sendTransaction = node.onz.transaction.createTransaction(multisigAccount.address, 1000000000*100, node.gAccount.password);
 			addTransactionsAndForge([sendTransaction], done);
 		});
 
@@ -141,9 +141,9 @@ describe('multisignature', function () {
 						'+' + signer2.publicKey
 					];
 
-					multisigTransaction = node.lisk.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
-					var sign1 = node.lisk.multisignature.signTransaction(multisigTransaction, signer1.password);
-					var sign2 = node.lisk.multisignature.signTransaction(multisigTransaction, signer2.password);
+					multisigTransaction = node.onz.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
+					var sign1 = node.onz.multisignature.signTransaction(multisigTransaction, signer1.password);
+					var sign2 = node.onz.multisignature.signTransaction(multisigTransaction, signer2.password);
 
 					multisigTransaction.signatures = [sign1, sign2];
 					multisigTransaction.ready = true;
@@ -223,9 +223,9 @@ describe('multisignature', function () {
 							'+' + signer3.publicKey,
 							'+' + signer4.publicKey
 						];
-						multisigTransaction2 = node.lisk.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
-						var sign3 = node.lisk.multisignature.signTransaction(multisigTransaction2, signer3.password);
-						var sign4 = node.lisk.multisignature.signTransaction(multisigTransaction2, signer4.password);
+						multisigTransaction2 = node.onz.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
+						var sign3 = node.onz.multisignature.signTransaction(multisigTransaction2, signer3.password);
+						var sign4 = node.onz.multisignature.signTransaction(multisigTransaction2, signer4.password);
 						multisigTransaction2.signatures = [sign3, sign4];
 						library.logic.transaction.process(multisigTransaction2, multisigSender, done);
 					});
@@ -248,13 +248,13 @@ describe('multisignature', function () {
 		});
 	});
 
-	describe('with LISK sent to multisig account', function () {
+	describe('with ONZ sent to multisig account', function () {
 
 		var multisigAccount;
 
 		before('send funds to multisig account', function (done) {
 			multisigAccount = node.randomAccount();
-			var sendTransaction = node.lisk.transaction.createTransaction(multisigAccount.address, 1000000000*100, node.gAccount.password);
+			var sendTransaction = node.onz.transaction.createTransaction(multisigAccount.address, 1000000000*100, node.gAccount.password);
 			addTransactionsAndForge([sendTransaction], done);
 		});
 
@@ -281,9 +281,9 @@ describe('multisignature', function () {
 						'+' + signer2.publicKey
 					];
 
-					multisigTransaction = node.lisk.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
-					var sign1 = node.lisk.multisignature.signTransaction(multisigTransaction, signer1.password);
-					var sign2 = node.lisk.multisignature.signTransaction(multisigTransaction, signer2.password);
+					multisigTransaction = node.onz.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
+					var sign1 = node.onz.multisignature.signTransaction(multisigTransaction, signer1.password);
+					var sign2 = node.onz.multisignature.signTransaction(multisigTransaction, signer2.password);
 
 					multisigTransaction.signatures = [sign1, sign2];
 					multisigTransaction.ready = true;

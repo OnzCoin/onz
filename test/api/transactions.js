@@ -21,7 +21,7 @@ function putTransaction (params, done) {
 	node.put('/api/transactions', params, done);
 }
 
-function sendLISK (account, amount, done) {
+function sendONZ (account, amount, done) {
 	var expectedFee = node.expectedFee(amount);
 
 	putTransaction({
@@ -46,27 +46,27 @@ function sendLISK (account, amount, done) {
 
 before(function (done) {
 	setTimeout(function () {
-		sendLISK(account, node.randomLISK(), done);
+		sendONZ(account, node.randomONZ(), done);
 	}, 2000);
 });
 
 before(function (done) {
 	setTimeout(function () {
-		sendLISK(account2, node.randomLISK(), done);
+		sendONZ(account2, node.randomONZ(), done);
 	}, 2000);
 });
 
 before(function (done) {
 	setTimeout(function () {
 		// Send 20 LSK
-		sendLISK(account2, 20*100000000, done);
+		sendONZ(account2, 20*100000000, done);
 	}, 2000);
 });
 
 before(function (done) {
 	setTimeout(function () {
 		// Send 100 LSK
-		sendLISK(account2, 100*100000000, done);
+		sendONZ(account2, 100*100000000, done);
 	}, 2000);
 });
 

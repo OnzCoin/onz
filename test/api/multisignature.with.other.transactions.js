@@ -12,15 +12,15 @@ function getTransactionById (id, cb) {
 	node.get('/api/transactions/get?' + params, cb);
 }
 
-function sendLISK (params, cb) {
+function sendONZ (params, cb) {
 	params.secret = params.secret || node.gAccount.password;
 	node.put('/api/transactions/', params, function (err, res) {
 		cb(err, res);
 	});
 }
 
-function createAccountWithLisk (params, cb) {
-	sendLISK(params, function (err, res) {
+function createAccountWithOnz (params, cb) {
+	sendONZ(params, function (err, res) {
 		node.onNewBlock(cb);
 	});
 }
@@ -124,14 +124,14 @@ function createMultisignatureAndConfirm (account, cb) {
 	});
 }
 
-describe('for an account with lisk', function () {
+describe('for an account with onz', function () {
 
 	var multisigAccount;
 	var amounts = [100000000*10, 100000000*12, 100000000*11];
 
 	beforeEach(function (done) {
 		multisigAccount = node.randomAccount();
-		createAccountWithLisk({
+		createAccountWithOnz({
 			recipientId: multisigAccount.address,
 			amount: 100000000*1000
 		}, done);
@@ -155,7 +155,7 @@ describe('for an account with lisk', function () {
 			var transactionInCheckId;
 
 			beforeEach(function (done) {
-				sendLISK({
+				sendONZ({
 					recipientId: node.randomAccount().address,
 					amount: 10,
 					secret: multisigAccount.password
@@ -178,7 +178,7 @@ describe('for an account with lisk', function () {
 
 			beforeEach(function (done) {
 				async.map([node.randomAccount(), node.randomAccount(), node.randomAccount()], function (account, cb) {
-					sendLISK({
+					sendONZ({
 						recipientId: node.randomAccount().address,
 						amount: 10,
 						secret: multisigAccount.password
@@ -583,7 +583,7 @@ describe('for an account with lisk', function () {
 									recipientId: node.randomAccount().address,
 									amount: 100
 								};
-								sendLISK(params, cb);
+								sendONZ(params, cb);
 							},
 							function type1 (cb) {
 								var params = {

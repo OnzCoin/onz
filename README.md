@@ -1,11 +1,11 @@
-# Lisk
+# Onz
 
-Lisk is a next generation crypto-currency and decentralized application platform, written entirely in JavaScript. For more information please refer to our website: https://lisk.io/.
+Onz is a next generation crypto-currency and decentralized application platform, written entirely in JavaScript. For more information please refer to our website: https://onz.io/.
 
-[![Build Status](https://travis-ci.org/LiskHQ/lisk.svg?branch=development)](https://travis-ci.org/LiskHQ/lisk)
-[![Coverage Status](https://coveralls.io/repos/github/LiskHQ/lisk/badge.svg?branch=development)](https://coveralls.io/github/LiskHQ/lisk?branch=development)
+[![Build Status](https://travis-ci.org/OnzCoin/onz.svg?branch=development)](https://travis-ci.org/OnzCoin/onz)
+[![Coverage Status](https://coveralls.io/repos/github/OnzCoin/onz/badge.svg?branch=development)](https://coveralls.io/github/OnzCoin/onz?branch=development)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
-[![Join the chat at https://gitter.im/LiskHQ/lisk](https://badges.gitter.im/LiskHQ/lisk.svg)](https://gitter.im/LiskHQ/lisk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/OnzCoin/onz](https://badges.gitter.im/OnzCoin/onz.svg)](https://gitter.im/OnzCoin/onz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 **NOTE:** The following information is applicable to: **Ubuntu 14.04, 16.04 (LTS) or 16.10 - x86_64**.
 
@@ -15,7 +15,7 @@ Lisk is a next generation crypto-currency and decentralized application platform
 
   `sudo apt-get install -y python build-essential curl automake autoconf libtool`
 
-- Git (<https://github.com/git/git>) -- Used for cloning and updating Lisk
+- Git (<https://github.com/git/git>) -- Used for cloning and updating Onz
 
   `sudo apt-get install -y git`
 
@@ -38,12 +38,12 @@ Lisk is a next generation crypto-currency and decentralized application platform
 - Install PostgreSQL (version 9.6.2):
 
   ```
-  curl -sL "https://downloads.lisk.io/scripts/setup_postgresql.Linux" | bash -
+  curl -sL "https://downloads.onz.io/scripts/setup_postgresql.Linux" | bash -
   sudo -u postgres createuser --createdb $USER
-  createdb lisk_test
-  createdb lisk_main
-  sudo -u postgres psql -d lisk_test -c "alter user "$USER" with password 'password';"
-  sudo -u postgres psql -d lisk_main -c "alter user "$USER" with password 'password';"
+  createdb onz_test
+  createdb onz_main
+  sudo -u postgres psql -d onz_test -c "alter user "$USER" with password 'password';"
+  sudo -u postgres psql -d onz_main -c "alter user "$USER" with password 'password';"
   ```
 
 - Bower (<http://bower.io/>) -- Bower helps to install required JavaScript dependencies.
@@ -54,30 +54,30 @@ Lisk is a next generation crypto-currency and decentralized application platform
 
   `npm install -g grunt-cli`
 
-- PM2 (<https://github.com/Unitech/pm2>) -- PM2 manages the node process for Lisk (Optional)
+- PM2 (<https://github.com/Unitech/pm2>) -- PM2 manages the node process for Onz (Optional)
 
   `npm install -g pm2`
 
 ## Installation Steps
 
-Clone the Lisk repository using Git and initialize the modules.
+Clone the Onz repository using Git and initialize the modules.
 
 ```
-git clone https://github.com/LiskHQ/lisk.git
-cd lisk
+git clone https://github.com/OnzCoin/onz.git
+cd onz
 npm install
 ```
 
-Install Lisk Node, a specialized version of Node.js used to execute dapps within a virtual machine:
+Install Onz Node, a specialized version of Node.js used to execute dapps within a virtual machine:
 
 ```
-wget https://downloads.lisk.io/lisk-node/lisk-node-Linux-x86_64.tar.gz
-tar -zxvf lisk-node-Linux-x86_64.tar.gz
+wget https://downloads.onz.io/onz-node/onz-node-Linux-x86_64.tar.gz
+tar -zxvf onz-node-Linux-x86_64.tar.gz
 ```
 
-Lisk Node has to be in `[LISK_DIR]/nodejs/node`.
+Onz Node has to be in `[ONZ_DIR]/nodejs/node`.
 
-Load git submodules ([lisk-ui](https://github.com/LiskHQ/lisk-ui) and [lisk-js](https://github.com/LiskHQ/lisk-js)):
+Load git submodules ([onz-ui](https://github.com/OnzCoin/onz-ui) and [onz-js](https://github.com/OnzCoin/onz-js)):
 
 ```
 git submodule init
@@ -93,35 +93,35 @@ bower install
 grunt release
 ```
 
-## Managing Lisk
+## Managing Onz
 
-To test that Lisk is built and configured correctly, run the following command:
+To test that Onz is built and configured correctly, run the following command:
 
 `node app.js`
 
-In a browser navigate to: <http://localhost:8000> (for the mainnet) or <http://localhost:7000> (for the testnet). If Lisk is running on a remote system, switch `localhost` for the external IP Address of the machine.
+In a browser navigate to: <http://localhost:8000> (for the mainnet) or <http://localhost:7000> (for the testnet). If Onz is running on a remote system, switch `localhost` for the external IP Address of the machine.
 
 Once the process is verified as running correctly, `CTRL+C` and start the process with `pm2`. This will fork the process into the background and automatically recover the process if it fails.
 
-`pm2 start --name lisk app.js`
+`pm2 start --name onz app.js`
 
 After the process is started, its runtime status and log location can be retrieved by issuing the following command:
 
-`pm2 show lisk`
+`pm2 show onz`
 
-To stop Lisk after it has been started with `pm2`, issue the following command:
+To stop Onz after it has been started with `pm2`, issue the following command:
 
-`pm2 stop lisk`
+`pm2 stop onz`
 
 **NOTE:** The **port**, **address** and **config-path** can be overridden by providing the relevant command switch:
 
 ```
-pm2 start --name lisk app.js -- -p [port] -a [address] -c [config-path]
+pm2 start --name onz app.js -- -p [port] -a [address] -c [config-path]
 ```
 
 ## Tests
 
-Before running any tests, please ensure Lisk is configured to run on the same testnet that is used by the test-suite.
+Before running any tests, please ensure Onz is configured to run on the same testnet that is used by the test-suite.
 
 Replace **config.json** and **genesisBlock.json** with the corresponding files under the **test** directory:
 
@@ -132,8 +132,8 @@ cp test/config.json test/genesisBlock.json .
 **NOTE:** If the node was started with a different genesis block previous, trauncate the database before running tests.
 
 ```
-dropdb lisk_test
-createdb lisk_test
+dropdb onz_test
+createdb onz_test
 ```
 
 **NOTE:** The master passphrase for this genesis block is as follows:
@@ -142,7 +142,7 @@ createdb lisk_test
 wagon stock borrow episode laundry kitten salute link globe zero feed marble
 ```
 
-Launch Lisk (runs on port 4000):
+Launch Onz (runs on port 4000):
 
 ```
 node app.js
@@ -173,19 +173,19 @@ npm test -- test/lib/transactions.js
 
 ## License
 
-Copyright © 2016-2017 Lisk Foundation
+Copyright © 2017-2018 Onz Coin Foundation
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the [GNU General Public License](https://github.com/LiskHQ/lisk/tree/master/LICENSE) along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the [GNU General Public License](https://github.com/OnzCoin/onz/tree/master/LICENSE) along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ***
 
-This program also incorporates work previously released with lisk `0.7.0` (and earlier) versions under the [MIT License](https://opensource.org/licenses/MIT). To comply with the requirements of that license, the following permission notice, applicable to those parts of the code only, is included below:
+This program also incorporates work previously released with onz `0.7.0` (and earlier) versions under the [MIT License](https://opensource.org/licenses/MIT). To comply with the requirements of that license, the following permission notice, applicable to those parts of the code only, is included below:
 
-Copyright © 2016-2017 Lisk Foundation  
+Copyright © 2017-2018 Onz Coin Foundation  
 Copyright © 2015 Crypti
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:

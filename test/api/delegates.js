@@ -11,7 +11,7 @@ function openAccount (params, done) {
 	});
 }
 
-function sendLISK (params, done) {
+function sendONZ (params, done) {
 	node.put('/api/transactions/', params, function (err, res) {
 		done(err, res);
 	});
@@ -38,9 +38,9 @@ function enrichRandomAccount (cb) {
 		secret: account.password,
 		username: account.username
 	};
-	sendLISK({
+	sendONZ({
 		secret: node.gAccount.password,
-		amount: node.LISK,
+		amount: node.ONZ,
 		recipientId: account.address
 	}, function (err, res) {
 		node.expect(res.body).to.have.property('success').to.be.ok;
@@ -506,9 +506,9 @@ describe('PUT /api/delegates double registration', function () {
 				secret: secondAccount.password,
 				username: secondAccount.username
 			};
-			sendLISK({
+			sendONZ({
 				secret: node.gAccount.password,
-				amount: node.LISK,
+				amount: node.ONZ,
 				recipientId: secondAccount.address
 			}, function (err, res) {
 				node.expect(res.body).to.have.property('success').to.be.ok;
@@ -974,9 +974,9 @@ describe('GET /api/delegates/voters', function () {
 	var account = node.randomAccount();
 
 	before(function (done) {
-		sendLISK({
+		sendONZ({
 			secret: node.gAccount.password,
-			amount: node.LISK,
+			amount: node.ONZ,
 			recipientId: account.address
 		}, function (err, res) {
 			node.expect(res.body).to.have.property('success').to.be.ok;

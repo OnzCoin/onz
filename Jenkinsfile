@@ -2,8 +2,8 @@ def initBuild() {
   sh '''#!/bin/bash
   pkill -f app.js -9 || true
   sudo service postgresql restart
-  dropdb lisk_test || true
-  createdb lisk_test
+  dropdb onz_test || true
+  createdb onz_test
   '''
   deleteDir()
   checkout scm
@@ -21,9 +21,9 @@ def buildDependency() {
     npm install
 
     # Install Nodejs
-    tar -zxf ~/lisk-node-Linux-x86_64.tar.gz
+    tar -zxf ~/onz-node-Linux-x86_64.tar.gz
 
-    # Build Lisk-UI
+    # Build Onz-UI
     cd public/
     npm install
     bower install
@@ -35,22 +35,22 @@ def buildDependency() {
   }
 }
 
-def startLisk() {
+def startOnz() {
   try {
     sh '''#!/bin/bash
     cd "$(echo $WORKSPACE | cut -f 1 -d '@')"
-    cd test/lisk-js/; npm install; cd ../..
+    cd test/onz-js/; npm install; cd ../..
     cp test/config.json test/genesisBlock.json .
     export NODE_ENV=test
-    JENKINS_NODE_COOKIE=dontKillMe ~/start_lisk.sh
+    JENKINS_NODE_COOKIE=dontKillMe ~/start_onz.sh
     '''
   } catch (err) {
     currentBuild.result = 'FAILURE'
-    error('Stopping build, Lisk failed')
+    error('Stopping build, Onz failed')
   }
 }
 
-lock(resource: "Lisk-Core-Nodes", inversePrecedence: true) {
+lock(resource: "Onz-Core-Nodes", inversePrecedence: true) {
   stage ('Prepare Workspace') {
     parallel(
       "Build Node-01" : {
@@ -75,7 +75,7 @@ lock(resource: "Lisk-Core-Nodes", inversePrecedence: true) {
           rm -rf node-0*
           rm -rf *.zip
           rm -rf coverage-unit/*
-          rm -rf lisk/*
+          rm -rf onz/*
           rm -f merged-lcov.info
           '''
           deleteDir()
@@ -105,21 +105,21 @@ lock(resource: "Lisk-Core-Nodes", inversePrecedence: true) {
     )
   }
 
-  stage ('Start Lisk') {
+  stage ('Start Onz') {
     parallel(
-      "Start Lisk Node-01" : {
+      "Start Onz Node-01" : {
         node('node-01'){
-          startLisk()
+          startOnz()
         }
       },
-      "Start Lisk Node-02" : {
+      "Start Onz Node-02" : {
         node('node-02'){
-          startLisk()
+          startOnz()
         }
       },
-      "Start Lisk Node-03" : {
+      "Start Onz Node-03" : {
         node('node-03'){
-          startLisk()
+          startOnz()
         }
       }
     )
@@ -446,7 +446,7 @@ lock(resource: "Lisk-Core-Nodes", inversePrecedence: true) {
         rm -rf *.zip
         rm -rf coverage-unit/*
         rm -f merged-lcov.info
-        rm -rf lisk/*
+        rm -rf onz/*
         '''
         }
       }
