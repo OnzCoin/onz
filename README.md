@@ -1,6 +1,6 @@
 # Onz
 
-Onz is a next generation crypto-currency and decentralized application platform, written entirely in JavaScript. For more information please refer to our website: https://onz.io/.
+Onz is a next generation crypto-currency and decentralized application platform, written entirely in JavaScript. For more information please refer to our website: https://onzcoin.com/.
 
 [![Build Status](https://travis-ci.org/OnzCoin/onz.svg?branch=development)](https://travis-ci.org/OnzCoin/onz)
 [![Coverage Status](https://coveralls.io/repos/github/OnzCoin/onz/badge.svg?branch=development)](https://coveralls.io/github/OnzCoin/onz?branch=development)
@@ -38,7 +38,7 @@ Onz is a next generation crypto-currency and decentralized application platform,
 - Install PostgreSQL (version 9.6.2):
 
   ```
-  curl -sL "https://downloads.onz.io/scripts/setup_postgresql.Linux" | bash -
+  curl -sL "https://downloads.onzcoin.com/scripts/setup_postgresql.Linux" | bash -
   sudo -u postgres createuser --createdb $USER
   createdb onz_test
   createdb onz_main
@@ -71,7 +71,7 @@ npm install
 Install Onz Node, a specialized version of Node.js used to execute dapps within a virtual machine:
 
 ```
-wget https://downloads.onz.io/onz-node/onz-node-Linux-x86_64.tar.gz
+wget https://downloads.onzcoin.com/onz-node/onz-node-Linux-x86_64.tar.gz
 tar -zxvf onz-node-Linux-x86_64.tar.gz
 ```
 
@@ -99,7 +99,7 @@ To test that Onz is built and configured correctly, run the following command:
 
 `node app.js`
 
-In a browser navigate to: <http://localhost:8000> (for the mainnet) or <http://localhost:7000> (for the testnet). If Onz is running on a remote system, switch `localhost` for the external IP Address of the machine.
+In a browser navigate to: <http://localhost:11000> (for the mainnet) or <http://localhost:10998> (for the testnet). If Onz is running on a remote system, switch `localhost` for the external IP Address of the machine.
 
 Once the process is verified as running correctly, `CTRL+C` and start the process with `pm2`. This will fork the process into the background and automatically recover the process if it fails.
 
