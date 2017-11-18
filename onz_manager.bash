@@ -27,7 +27,7 @@ DB_PASSWD="$(grep "password" $ONZ_CONFIG | cut -f 4 -d '"' | head -1)"
 GIT_ROOT="https://github.com/onzcoin"
 GIT_BRANCH=""
 set_branch
-BLOCKCHAIN_URL="http://downloads.onzcoin.com/snapshots/$GIT_BRANCH/latest"
+BLOCKCHAIN_URL="https://www.onzcoin.com/snapshots/$GIT_BRANCH/latest"
 DB_SNAPSHOT="blockchain.db.gz"
 
 install_prereq() {
