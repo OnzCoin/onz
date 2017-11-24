@@ -1,19 +1,19 @@
 {
-    "port": 8000,
+    "port": 10998,
     "address": "0.0.0.0",
     "version": "0.9.10",
     "minVersion": ">=0.9.5",
     "fileLogLevel": "info",
     "logFileName": "logs/onz.log",
-    "consoleLogLevel": "none",
+    "consoleLogLevel": "debug",
     "trustProxy": false,
     "topAccounts": false,
     "cacheEnabled": false,
     "db": {
         "host": "localhost",
         "port": 5432,
-        "database": "onz_main",
-        "user": "onz",
+        "database": "onz_test",
+        "user": "mars",
         "password": "password",
         "poolSize": 95,
         "poolIdleTimeout": 30000,
@@ -24,14 +24,14 @@
     },
     "redis": {
         "host": "127.0.0.1",
-        "port": 6380,
+        "port": 6379,
         "db": 0,
         "password": null
     },
     "api": {
         "enabled": true,
         "access": {
-            "public": false,
+            "public": true,
             "whiteList": ["127.0.0.1"]
         },
         "options": {
@@ -47,46 +47,10 @@
         "enabled": true,
         "list": [
             {
-                "ip": "83.136.254.92",
-                "port": 8000
-            },
-            {
-                "ip": "83.136.249.76",
-                "port": 8000
-            },
-            {
-                "ip": "94.237.28.66",
-                "port": 8000
-            },
-            {
-                "ip": "94.237.24.199",
-                "port": 8000
-            },
-            {
-                "ip": "209.50.49.23",
-                "port": 8000
-            },
-            {
-                "ip": "209.50.49.40",
-                "port": 8000
-            },
-            {
-                "ip": "94.237.64.70",
-                "port": 8000
-            },
-            {
-                "ip": "94.237.64.73",
-                "port": 8000
-            },
-            {
-                "ip": "94.237.40.140",
-                "port": 8000
-            },
-            {
-                "ip": "94.237.40.141",
-                "port": 8000
+              "ip": "45.32.140.238",
+              "port": 10998
             }
-        ],
+          ],
         "access": {
             "blackList": []
         },
@@ -137,5 +101,5 @@
         "masterpassword": "",
         "autoexec": []
     },
-    "nethash": "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511"
+    "nethash": "c6118f371269a8f3c5e26ce2d24fd168131ea356e22bfe44600a6b3122b1dabc"
 }
