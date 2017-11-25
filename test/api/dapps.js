@@ -739,7 +739,7 @@ describe('PUT /api/dapps/withdrawal', function () {
 	});
 
 	it('using recipientId without an "L" should fail', function (done) {
-		validParams.recipientId = validParams.recipientId.replace('L', '');
+		validParams.recipientId = validParams.recipientId.replace('Z', '');
 
 		putWithdrawal(validParams, function (err, res) {
 			node.expect(res.body).to.have.property('success').to.not.be.ok;
