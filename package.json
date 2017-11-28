@@ -39,7 +39,7 @@
     "method-override": "=2.3.7",
     "npm": "=2.15.10",
     "onz-js": "git+https://github.com/OnzCoin/onz-js.git",
-    "onz-sandbox": "OnzCoin/onz-sandbox#162da38",
+    "onz-sandbox": "git+https://github.com/OnzCoin/onz-sandbox.git",
     "pg-monitor": "=0.7.1",
     "pg-native": "=1.10.0",
     "pg-promise": "=5.5.6",
