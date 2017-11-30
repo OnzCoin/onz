@@ -37,12 +37,12 @@ var validBlock = {
 	previousBlock: '11850828211026019525',
 	reward: 0,
 	timestamp: 32578370,
-	totalAmount: 10000000000000000,
+	totalAmount: 18000000000000000,
 	totalFee: 0,
 	transactions: [
 		{
 			'type': 0,
-			'amount': 10000000000000000,
+			'amount': 18000000000000000,
 			'fee': 0,
 			'timestamp': 0,
 			'recipientId': '16313739661670634666L',
@@ -84,12 +84,12 @@ var blockRewardInvalid = {
 	previousBlock: '11850828211026019525',
 	reward: 35,
 	timestamp: 32578370,
-	totalAmount: 10000000000000000,
+	totalAmount: 18000000000000000,
 	totalFee: 0,
 	transactions: [
 		{
 			'type': 0,
-			'amount': 10000000000000000,
+			'amount': 18000000000000000,
 			'fee': 0,
 			'timestamp': 0,
 			'recipientId': '16313739661670634666L',
@@ -166,7 +166,7 @@ var block1;
 var transactionsBlock1 = [
 	{
 		'type': 0,
-		'amount': 10000000000000000,
+		'amount': 18000000000000000,
 		'fee': 10000000,
 		'timestamp': 33514086,
 		'recipientId': '16313739661670634666L',

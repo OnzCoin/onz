@@ -65,7 +65,7 @@ node.gAccount = {
 	address: '16313739661670634666L',
 	publicKey: 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f',
 	password: 'wagon stock borrow episode laundry kitten salute link globe zero feed marble',
-	balance: '10000000000000000'
+	balance: '18000000000000000'
 };
 
 // Optional logging

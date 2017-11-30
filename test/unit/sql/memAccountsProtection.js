@@ -33,7 +33,7 @@ var validAccount = {
 	'secondPublicKey': null,
 	'balance': '0',
 	'u_balance': '0',
-	'vote': '10000000000000000',
+	'vote': '18000000000000000',
 	'rate': '0',
 	'delegates': null,
 	'u_delegates': null,

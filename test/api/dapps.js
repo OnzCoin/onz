@@ -371,7 +371,7 @@ describe('PUT /api/dapps/transaction', function () {
 
 		putTransaction(validParams, function (err, res) {
 			node.expect(res.body).to.have.property('success').to.not.be.ok;
-			node.expect(res.body).to.have.property('error').to.equal('Value 10000000000000002 is greater than maximum 10000000000000000');
+			node.expect(res.body).to.have.property('error').to.equal('Value 10000000000000002 is greater than maximum 18000000000000000');
 			done();
 		});
 	});
@@ -563,7 +563,7 @@ describe('PUT /api/dapps/withdrawal', function () {
 
 		putWithdrawal(validParams, function (err, res) {
 			node.expect(res.body).to.have.property('success').to.not.be.ok;
-			node.expect(res.body).to.have.property('error').to.equal('Value 10000000000000002 is greater than maximum 10000000000000000');
+			node.expect(res.body).to.have.property('error').to.equal('Value 10000000000000002 is greater than maximum 18000000000000000');
 			done();
 		});
 	});
