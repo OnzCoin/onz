@@ -5,6 +5,7 @@
  * @memberof module:helpers
  * @property {number} activeDelegates - The default number of delegates.
  * @property {number} maxVotesPerTransaction - The maximum number of votes in vote type transaction.
+ * @property {number} maxVotesPerAccount - The maximum number of votes per account.
  * @property {number} addressLength - The default address length.
  * @property {number} blockHeaderLength - The default block header length.
  * @property {number} blockReceiptTimeOut
@@ -44,6 +45,7 @@
 module.exports = {
 	activeDelegates: 101,
 	maxVotesPerTransaction: 33,
+	maxVotesPerAccount: 11,
 	addressLength: 208,
 	blockHeaderLength: 248,
 	blockReceiptTimeOut: 20, // 2 blocks
@@ -347,7 +349,7 @@ module.exports = {
 			100000000
 		],
 		offset: 1,   // Start rewards at block (n)
-		distance: 12, // Distance between each milestone (30 days) (real:172800)
+		distance: 172800, // Distance between each milestone (30 days)
 	},
 	signatureLength: 196,
 	// WARNING: When changing totalAmount you also need to change getBlockRewards(int) SQL function!

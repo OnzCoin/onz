@@ -332,7 +332,7 @@ describe('POST /peer/transactions after registering a new delegate', function ()
 		});
 	});
 
-	it('exceeding maximum of 101 votes should fail', function (done) {
+	it('exceeding maximum of 11 votes should fail', function (done) {
 		node.async.series([
 			function (seriesCb) {
 				getVotes(account.address, function (err, res) {
@@ -363,7 +363,7 @@ describe('POST /peer/transactions after registering a new delegate', function ()
 
 				postVote(transaction, function (err, res) {
 					node.expect(res.body).to.have.property('success').to.be.not.ok;
-					node.expect(res.body).to.have.property('message').to.equal('Maximum number of 101 votes exceeded (1 too many)');
+					node.expect(res.body).to.have.property('message').to.equal('Maximum number of 11 votes exceeded (1 too many)');
 					seriesCb();
 				});
 			},
