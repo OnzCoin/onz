@@ -22,7 +22,7 @@ node.expect = require('chai').expect;
 node.chai = require('chai');
 node.chai.config.includeStack = true;
 node.chai.use(require('chai-bignumber')(node.bignum));
-node.onz = require('./onz-js');
+node.onz = require('onz-js');
 node.supertest = require('supertest');
 require('colors');
 

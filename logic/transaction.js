@@ -9,6 +9,8 @@ var exceptions = require('../helpers/exceptions.js');
 var extend = require('extend');
 var slots = require('../helpers/slots.js');
 var sql = require('../sql/transactions.js');
+var bs58check = require('bs58check');
+var RIPEMD160 = require('ripemd160');
 
 // Private fields
 var self, modules, __private = {};
@@ -195,6 +197,15 @@ Transaction.prototype.getHash = function (trs) {
  * @throws {error} If buffer fails.
  */
 Transaction.prototype.getBytes = function (trs, skipSignature, skipSecondSignature) {
+	function assignHexToTransactionBytes (partTransactionBuffer, hexValue) {
+		var hexBuffer = Buffer.from(hexValue, 'hex');
+		for (var i = 0; i < hexBuffer.length; i++) {
+			partTransactionBuffer.writeByte(hexBuffer[i]);
+		}
+		return partTransactionBuffer;
+
+	}
+	
 	if (!__private.types[trs.type]) {
 		throw 'Unknown transaction type ' + trs.type;
 	}
@@ -223,14 +234,12 @@ Transaction.prototype.getBytes = function (trs, skipSignature, skipSecondSignatu
 		}
 
 		if (trs.recipientId) {
-			var recipient = trs.recipientId.slice(0, -1);
-			recipient = new bignum(recipient).toBuffer({size: 8});
-
-			for (i = 0; i < 8; i++) {
-				bb.writeByte(recipient[i] || 0);
-			}
+			var recipient = trs.recipientId.substring(3);
+			var address = '4f4e5a'; //ONZ
+			address += bs58check.decode(recipient).toString('hex');
+			assignHexToTransactionBytes(bb, address);
 		} else {
-			for (i = 0; i < 8; i++) {
+			for (var i = 0; i < 24; i++) {
 				bb.writeByte(0);
 			}
 		}
