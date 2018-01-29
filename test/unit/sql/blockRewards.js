@@ -244,12 +244,12 @@ describe('BlockRewardsSQL', function () {
 			calcSupply(0, null, done);
 		});
 
-		it('when height == 1 should return 10000000000000000', function (done) {
-			calcSupply(1, 10000000000000000, done);
+		it('when height == 1 should return 18000000000000000', function (done) {
+			calcSupply(1, 18000000000000000, done);
 		});
 
-		it('when height == (offset - 1) should return 10000000000000000', function (done) {
-			calcSupply(1451519, 10000000000000000, done);
+		it('when height == (offset - 1) should return 18000000000000000', function (done) {
+			calcSupply(1451519, 18000000000000000, done);
 		});
 
 		it('when height == (offset) should return 10000000500000000', function (done) {

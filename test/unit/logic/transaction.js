@@ -102,7 +102,7 @@ var rawValidTransaction = {
 
 var genesisTrs = {
 	type: 0,
-	amount: 10000000000000000,
+	amount: 18000000000000000,
 	fee: 0,
 	timestamp: 0,
 	recipientId: '16313739661670634666L',

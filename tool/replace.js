@@ -1,7 +1,7 @@
 const replace = require('replace-in-file');
 
 const options = {
-  files: ['modules/**/*.js'],
+  files: ['../modules/**/*.js'],
   from: [
             /lisk-sandbox/g,
             /lisk-js-api/g,
@@ -24,7 +24,7 @@ try {
 
 
 const options2 = {
-    files: ['test/**/*.js'],
+    files: ['../test/**/*.js'],
     from: [
               /sendLISK/g,
               /randomLISK/g,
@@ -51,7 +51,7 @@ const options2 = {
 
 
   const options3 = {
-    files: ['app.js'],
+    files: ['../app.js'],
     from: [
               /lisk/g,
               /Lisk/g
@@ -72,7 +72,7 @@ const options2 = {
   
 
 const options4 = {
-    files: 'README.md',
+    files: '../README.md',
     from: [
               /Copyright © 2016-2017 Lisk Foundation/g,
               /LiskHQ/g,
@@ -104,7 +104,7 @@ try {
 
 
 const options5 = {
-    files: ['helpers/**/*.js'],
+    files: ['../helpers/**/*.js'],
     from: [
               /Lisk/g,
               /lisk/g,
@@ -129,10 +129,10 @@ const options5 = {
 
 
   const options6 = {
-    files: ['Jenkinsfile'],
+    files: ['../Jenkinsfile'],
     from: [
               /Lisk/g,
-              /lisk/g,
+              /lisk/g
           ],
     to:   [
               'Onz',
@@ -142,6 +142,24 @@ const options5 = {
   
   try {
       const changes = replace.sync(options6);
+      console.log('Modified files:', changes.join(', '));
+  } catch (error) {
+      console.error('Error occurred:', error);
+  }
+
+
+  const options7 = {
+    files: ['../docs/**/*.js','../logic/**/*.js','../modules/**/*.js','../test/**/*.js'],
+    from: [
+              /'L'/g
+          ],
+    to:   [
+              '\'Z\''
+          ],
+  };
+  
+  try {
+      const changes = replace.sync(options7);
       console.log('Modified files:', changes.join(', '));
   } catch (error) {
       console.error('Error occurred:', error);

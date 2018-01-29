@@ -47,12 +47,14 @@
         "enabled": true,
         "list": [
             {
-                "ip": "45.63.86.165",
-                "port": 11000
+
+              "ip": "45.32.140.238",
+              "port": 10998
             },
             {
-                "ip": "45.77.206.211",
-                "port": 11000
+                "ip": "45.32.62.121",
+                "port": 10998
+
             }
           ],
         "access": {
@@ -105,5 +107,5 @@
         "masterpassword": "",
         "autoexec": []
     },
-    "nethash": "053ef5853fc3d1e73cc55186c789f69be14c14d48bf748b4c9a5775c8de1056b"
+    "nethash": "843351db5e4434c7660035204456c2cb30d362f0fb4aaa30e0c20d6f4d197fda"
 }
