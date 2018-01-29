@@ -12,7 +12,7 @@
     "db": {
         "host": "localhost",
         "port": 5432,
-        "database": "onz_main",
+        "database": "onz_test",
         "user": "onzcoin",
         "password": "password",
         "poolSize": 95,
@@ -32,7 +32,9 @@
         "enabled": true,
         "access": {
             "public": true,
-            "whiteList": ["127.0.0.1"]
+            "whiteList": [
+                "127.0.0.1"
+            ]
         },
         "options": {
             "limits": {
@@ -48,15 +50,15 @@
         "list": [
             {
 
-              "ip": "45.32.140.238",
-              "port": 10998
-            },
-            {
-                "ip": "45.32.62.121",
+                "ip": "tnode1.onzcoin.com",
                 "port": 10998
-
-            }
-          ],
+              },
+              {
+                  "ip": "tnode2.onzcoin.com",
+                  "port": 10998
+  
+              }
+        ],
         "access": {
             "blackList": []
         },
@@ -104,8 +106,8 @@
     },
     "dapp": {
         "masterrequired": true,
-        "masterpassword": "",
+        "masterpassword": "ve6qTYsDoPiY",
         "autoexec": []
     },
-    "nethash": "843351db5e4434c7660035204456c2cb30d362f0fb4aaa30e0c20d6f4d197fda"
+    "nethash": "a0c38f0dd302a6cf5ceef3d9dc5ccf0a12a34ab39c0cc42cf2d2602d8b44b0ad"
 }
