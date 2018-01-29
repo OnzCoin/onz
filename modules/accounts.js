@@ -9,6 +9,8 @@ var schema = require('../schema/accounts.js');
 var sandboxHelper = require('../helpers/sandbox.js');
 var transactionTypes = require('../helpers/transactionTypes.js');
 var Vote = require('../logic/vote.js');
+var bs58check = require('bs58check');
+var RIPEMD160 = require('ripemd160');
 
 // Private fields
 var modules, library, self, __private = {}, shared = {};
@@ -98,14 +100,13 @@ __private.openAccount = function (secret, cb) {
  */
 Accounts.prototype.generateAddressByPublicKey = function (publicKey) {
 	var publicKeyHash = crypto.createHash('sha256').update(publicKey, 'hex').digest();
-	var temp = Buffer.alloc(8);
+	var buffer = new Buffer(new RIPEMD160().update(publicKeyHash).digest('hex'));
+	var payload = new Buffer(21);
+	payload.writeUInt8(0x85, 0);
+	buffer.copy(payload, 1);
 
-	for (var i = 0; i < 8; i++) {
-		temp[i] = publicKeyHash[7 - i];
-	}
-
-	var address = bignum.fromBuffer(temp).toString() + 'Z';
-
+	var address = 'ONZ'+bs58check.encode(payload);
+	
 	if (!address) {
 		throw 'Invalid public key: ' + publicKey;
 	}
