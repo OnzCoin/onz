@@ -10,22 +10,24 @@ UPDATE "mem_accounts" AS m
   FROM (
     SELECT "address", "balance", "u_balance"
       FROM "mem_accounts"
-     WHERE "address" LIKE '%z'
+     WHERE "address" LIKE 'onz%'
   ) AS "l"
  WHERE m."address" = UPPER(l."address");
 
-DELETE FROM "mem_accounts" WHERE "address" LIKE '%z' AND "publicKey" IS NULL;
+DELETE FROM "mem_accounts" WHERE "address" LIKE 'onz%' AND "publicKey" IS NULL;
 
-UPDATE "mem_accounts" SET "address" = UPPER("address") WHERE "address" LIKE '%z';
+/*
+UPDATE "mem_accounts" SET "address" = UPPER("address") WHERE "address" LIKE 'onz%';
 
-UPDATE "mem_round" SET "address" = UPPER("address") WHERE "address" LIKE '%z';
+UPDATE "mem_round" SET "address" = UPPER("address") WHERE "address" LIKE 'onz%';
 
-UPDATE "mem_accounts2delegates" SET "accountId" = UPPER("accountId") WHERE "accountId" LIKE '%z';
+UPDATE "mem_accounts2delegates" SET "accountId" = UPPER("accountId") WHERE "accountId" LIKE 'onz%';
 
-UPDATE "mem_accounts2u_delegates" SET "accountId" = UPPER("accountId") WHERE "accountId" LIKE '%z';
+UPDATE "mem_accounts2u_delegates" SET "accountId" = UPPER("accountId") WHERE "accountId" LIKE 'onz%';
 
-UPDATE "mem_accounts2multisignatures" SET "accountId" = UPPER("accountId") WHERE "accountId" LIKE '%z';
+UPDATE "mem_accounts2multisignatures" SET "accountId" = UPPER("accountId") WHERE "accountId" LIKE 'onz%';
 
-UPDATE "mem_accounts2u_multisignatures" SET "accountId" = UPPER("accountId") WHERE "accountId" LIKE '%z';
+UPDATE "mem_accounts2u_multisignatures" SET "accountId" = UPPER("accountId") WHERE "accountId" LIKE 'onz%';
+*/
 
 COMMIT;
