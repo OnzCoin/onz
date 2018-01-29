@@ -28,12 +28,12 @@ var validAccount = {
 	'secondSignature': 0,
 	'u_secondSignature': 0,
 	'u_username': validUsername,
-	'address': randomstring.generate({charset: 'numeric', length: 20}) + 'L',
+	'address': randomstring.generate({charset: 'numeric', length: 20}) + 'Z',
 	'publicKey': randomstring.generate({charset: '0123456789ABCDE', length: 32}),
 	'secondPublicKey': null,
 	'balance': '0',
 	'u_balance': '0',
-	'vote': '10000000000000000',
+	'vote': '18000000000000000',
 	'rate': '0',
 	'delegates': null,
 	'u_delegates': null,
@@ -151,7 +151,7 @@ describe('mem_accounts protection', function () {
 
 			before(function (done) {
 				noUsernameAccount = _.clone(validAccount);
-				noUsernameAccount.address = randomstring.generate({charset: 'numeric', length: 20}) + 'L';
+				noUsernameAccount.address = randomstring.generate({charset: 'numeric', length: 20}) + 'Z';
 				noUsernameAccount.publicKey = randomstring.generate({charset: '0123456789ABCDE', length: 32});
 				noUsernameAccount.username = null;
 				queries.insertAccount(noUsernameAccount, done);
@@ -231,7 +231,7 @@ describe('mem_accounts protection', function () {
 
 			before(function (done) {
 				noU_usernameAccount = _.clone(validAccount);
-				noU_usernameAccount.address = randomstring.generate({charset: 'numeric', length: 20}) + 'L';
+				noU_usernameAccount.address = randomstring.generate({charset: 'numeric', length: 20}) + 'Z';
 				noU_usernameAccount.publicKey = randomstring.generate({charset: '0123456789ABCDE', length: 32});
 				noU_usernameAccount.u_username = null;
 				queries.insertAccount(noU_usernameAccount, done);

@@ -106,7 +106,7 @@ Accounts.prototype.generateAddressByPublicKey = function (publicKey) {
 	buffer.copy(payload, 1);
 
 	var address = 'ONZ'+bs58check.encode(payload);
-
+	
 	if (!address) {
 		throw 'Invalid public key: ' + publicKey;
 	}

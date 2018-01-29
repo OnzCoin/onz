@@ -203,9 +203,8 @@ Transaction.prototype.getBytes = function (trs, skipSignature, skipSecondSignatu
 			partTransactionBuffer.writeByte(hexBuffer[i]);
 		}
 		return partTransactionBuffer;
-
 	}
-	
+
 	if (!__private.types[trs.type]) {
 		throw 'Unknown transaction type ' + trs.type;
 	}
