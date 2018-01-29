@@ -8,7 +8,6 @@ var BlockReward = require('../logic/blockReward.js');
 var constants = require('../helpers/constants.js');
 var bs58check = require('bs58check');
 var RIPEMD160 = require('ripemd160');
-
 var transactionTypes = require('../helpers/transactionTypes.js');
 
 // Private fields

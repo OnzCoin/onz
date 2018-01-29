@@ -1,5 +1,5 @@
 {
-    "port": 10998,
+    "port": 11000,
     "address": "0.0.0.0",
     "version": "0.9.10",
     "minVersion": ">=0.9.5",
@@ -12,7 +12,7 @@
     "db": {
         "host": "localhost",
         "port": 5432,
-        "database": "onz_test",
+        "database": "onz_main",
         "user": "onzcoin",
         "password": "password",
         "poolSize": 95,
@@ -47,12 +47,14 @@
         "enabled": true,
         "list": [
             {
+
               "ip": "45.32.140.238",
               "port": 10998
             },
             {
                 "ip": "45.32.62.121",
                 "port": 10998
+
             }
           ],
         "access": {
