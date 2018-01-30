@@ -166,13 +166,7 @@ Transaction.prototype.multisign = function (keypair, trs) {
  */
 Transaction.prototype.getId = function (trs) {
 	var hash = this.getHash(trs);
-	var temp = Buffer.alloc(8);
-	for (var i = 0; i < 8; i++) {
-		temp[i] = hash[7 - i];
-	}
-
-	var id = bignum.fromBuffer(temp).toString();
-	return id;
+	return hash;
 };
 
 /**
