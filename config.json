@@ -1,5 +1,5 @@
 {
-    "port": 11000,
+    "port": 10998,
     "address": "0.0.0.0",
     "version": "0.9.11",
     "minVersion": ">=0.9.5",
@@ -109,5 +109,5 @@
         "masterpassword": "ve6qTYsDoPiY",
         "autoexec": []
     },
-    "nethash": "a0c38f0dd302a6cf5ceef3d9dc5ccf0a12a34ab39c0cc42cf2d2602d8b44b0ad"
+    "nethash": "d29053468d37ae2332a09abe12bea6de063ab68f6d5f625290e4f96c14246045"
 }
