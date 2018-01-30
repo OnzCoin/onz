@@ -232,7 +232,7 @@ Transaction.prototype.getBytes = function (trs, skipSignature, skipSecondSignatu
 			address += bs58check.decode(recipient).toString('hex');
 			assignHexToTransactionBytes(bb, address);
 		} else {
-			for (var i = 0; i < 24; i++) {
+			for (var i = 0; i < 27; i++) {
 				bb.writeByte(0);
 			}
 		}
