@@ -19,3 +19,4 @@ sftp-config.json
 *.swo
 tool/
 .vscode/launch.json
+package-lock.json
