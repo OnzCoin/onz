@@ -102,10 +102,10 @@ Accounts.prototype.generateAddressByPublicKey = function (publicKey) {
 	var publicKeyHash = crypto.createHash('sha256').update(publicKey, 'hex').digest();
 	var buffer = new Buffer(new RIPEMD160().update(publicKeyHash).digest('hex'));
 	var payload = new Buffer(21);
-	payload.writeUInt8(0x85, 0);
+	payload.writeUInt8(81, 0);
 	buffer.copy(payload, 1);
 
-	var address = 'ONZ'+bs58check.encode(payload);
+	var address = 'ON'+bs58check.encode(payload);
 	
 	if (!address) {
 		throw 'Invalid public key: ' + publicKey;

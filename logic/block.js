@@ -55,9 +55,9 @@ __private.getAddressByPublicKey = function (publicKey) {
 	var publicKeyHash = crypto.createHash('sha256').update(publicKey, 'hex').digest();
 	var buffer = new Buffer(new RIPEMD160().update(publicKeyHash).digest('hex'));
 	var payload = new Buffer(21);
-	payload.writeUInt8(0x85, 0);
+	payload.writeUInt8(81, 0);
 	buffer.copy(payload, 1);
-	return 'ONZ'+bs58check.encode(payload);
+	return 'ON'+bs58check.encode(payload);
 };
 
 // Public methods
@@ -160,7 +160,15 @@ Block.prototype.sign = function (block, keypair) {
  * @throws {error} If buffer fails
  */
 Block.prototype.getBytes = function (block) {
-	var size = 4 + 4 + 8 + 4 + 4 + 8 + 8 + 4 + 4 + 4 + 32 + 32 + 64;
+	function assignHexToTransactionBytes (partTransactionBuffer, hexValue) {
+		var hexBuffer = Buffer.from(hexValue, 'hex');
+		for (var i = 0; i < hexBuffer.length; i++) {
+			partTransactionBuffer.writeByte(hexBuffer[i]);
+		}
+		return partTransactionBuffer;
+	}
+
+	var size = 4 + 4 + 32 + 4 + 4 + 8 + 8 + 4 + 4 + 4 + 32 + 32 + 64;
 	var b, i;
 
 	try {
@@ -169,17 +177,13 @@ Block.prototype.getBytes = function (block) {
 		bb.writeInt(block.timestamp);
 
 		if (block.previousBlock) {
-			var pb = new bignum(block.previousBlock).toBuffer({size: '8'});
-
-			for (i = 0; i < 8; i++) {
-				bb.writeByte(pb[i]);
-			}
+			assignHexToTransactionBytes(bb, block.previousBlock);
 		} else {
-			for (i = 0; i < 8; i++) {
+			for (i = 0; i < 32; i++) {
 				bb.writeByte(0);
 			}
 		}
-
+		
 		bb.writeInt(block.numberOfTransactions);
 		bb.writeLong(block.totalAmount);
 		bb.writeLong(block.totalFee);
@@ -302,14 +306,14 @@ Block.prototype.dbSave = function (block) {
 
 /**
  * @typedef {Object} block
- * @property {string} id - Between 1 and 20 chars
+ * @property {string} id - Between 1 and 32 chars
  * @property {number} height
  * @property {signature} blockSignature
  * @property {publicKey} generatorPublicKey
  * @property {number} numberOfTransactions
  * @property {hash} payloadHash
  * @property {number} payloadLength
- * @property {string} previousBlock - Between 1 and 20 chars
+ * @property {string} previousBlock - Between 1 and 32 chars
  * @property {number} timestamp
  * @property {number} totalAmount - Minimun 0
  * @property {number} totalFee - Minimun 0
@@ -325,7 +329,7 @@ Block.prototype.schema = {
 			type: 'string',
 			format: 'id',
 			minLength: 1,
-			maxLength: 20
+			maxLength: 32
 		},
 		height: {
 			type: 'integer'
@@ -352,7 +356,7 @@ Block.prototype.schema = {
 			type: 'string',
 			format: 'id',
 			minLength: 1,
-			maxLength: 20
+			maxLength: 32
 		},
 		timestamp: {
 			type: 'integer'

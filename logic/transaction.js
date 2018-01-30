@@ -233,8 +233,8 @@ Transaction.prototype.getBytes = function (trs, skipSignature, skipSecondSignatu
 		}
 
 		if (trs.recipientId) {
-			var recipient = trs.recipientId.substring(3);
-			var address = '4f4e5a'; //ONZ
+			var recipient = trs.recipientId.substring(2);
+			var address = '4f4e'; //ON
 			address += bs58check.decode(recipient).toString('hex');
 			assignHexToTransactionBytes(bb, address);
 		} else {
@@ -1001,7 +1001,7 @@ Transaction.prototype.schema = {
 			type: 'string',
 			format: 'id',
 			minLength: 1,
-			maxLength: 20
+			maxLength: 32
 		},
 		height: {
 			type: 'integer'
@@ -1010,7 +1010,7 @@ Transaction.prototype.schema = {
 			type: 'string',
 			format: 'id',
 			minLength: 1,
-			maxLength: 20
+			maxLength: 32
 		},
 		type: {
 			type: 'integer'
@@ -1030,13 +1030,13 @@ Transaction.prototype.schema = {
 			type: 'string',
 			format: 'address',
 			minLength: 1,
-			maxLength: 22
+			maxLength: 36
 		},
 		recipientId: {
 			type: 'string',
 			format: 'address',
 			minLength: 1,
-			maxLength: 22
+			maxLength: 36
 		},
 		amount: {
 			type: 'integer',
