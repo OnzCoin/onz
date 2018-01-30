@@ -468,7 +468,7 @@ Transaction.prototype.verify = function (trs, sender, requester, cb) {
 	}
 
 	// Check sender address
-	if (String(trs.senderId).toUpperCase() !== String(sender.address).toUpperCase()) {
+	if (trs.senderId !== sender.address) {
 		return setImmediate(cb, 'Invalid sender address');
 	}
 

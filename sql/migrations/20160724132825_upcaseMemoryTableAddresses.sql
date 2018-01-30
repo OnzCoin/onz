@@ -12,7 +12,7 @@ UPDATE "mem_accounts" AS m
       FROM "mem_accounts"
      WHERE "address" LIKE 'onz%'
   ) AS "l"
- WHERE m."address" = UPPER(l."address");
+ WHERE m."address" = l."address";
 
 DELETE FROM "mem_accounts" WHERE "address" LIKE 'onz%' AND "publicKey" IS NULL;
 

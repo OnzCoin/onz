@@ -15,8 +15,8 @@ SELECT t."id" AS "t_id",
        t."timestamp" AS "t_timestamp",
        t."senderPublicKey" AS "t_senderPublicKey",
        m."publicKey" AS "m_recipientPublicKey",
-       UPPER(t."senderId") AS "t_senderId",
-       UPPER(t."recipientId") AS "t_recipientId",
+       t."senderId" AS "t_senderId",
+       t."recipientId" AS "t_recipientId",
        t."amount" AS "t_amount",
        t."fee" AS "t_fee",
        ENCODE(t."signature", 'hex') AS "t_signature",
@@ -29,7 +29,7 @@ FROM trs t
 LEFT JOIN blocks b ON t."blockId" = b."id"
 LEFT JOIN mem_accounts m ON t."recipientId" = m."address";
 
-CREATE INDEX IF NOT EXISTS "trs_upper_sender_id" ON "trs"(UPPER("senderId"));
-CREATE INDEX IF NOT EXISTS "trs_upper_recipient_id" ON "trs"(UPPER("recipientId"));
+-- CREATE INDEX IF NOT EXISTS "trs_upper_sender_id" ON "trs"(UPPER("senderId"));
+-- CREATE INDEX IF NOT EXISTS "trs_upper_recipient_id" ON "trs"(UPPER("recipientId"));
 
 COMMIT;
