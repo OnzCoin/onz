@@ -52,80 +52,12 @@ __private.blockReward = new BlockReward();
  * @return {address} address
  */
 __private.getAddressByPublicKey = function (publicKey) {
-	var publicKeyHash =  * @param {Object} ed
- * @param {ZSchema} schema
- * @param {Transaction} transaction
- * @param {function} cb - Callback function.
- * @return {setImmediateCallback} With `this` as data.
- */
-// Constructor
-function Block (ed, schema, transaction, cb) {
-	this.scope = {
-		ed: ed,
-		schema: schema,
-		transaction: transaction,
-	};
-	if (cb) {
-		return setImmediate(cb, null, this);
-	}
-}
-
-// Private methods
-/**
- * Creates a blockReward instance.
- * @private
- */
-__private.blockReward = new BlockReward();
-
-/**
- * Gets address by public
- * @private
- * @implements {crypto.createHash}
- * @implements {bignum.fromBuffer}
- * @param {publicKey} publicKey
- * @return {address} address
- */
-__private.getAddressByPublicKey = function (publicKey) {
-	var publicKeyHash =  * @param {Object} ed
- * @param {ZSchema} schema
- * @param {Transaction} transaction
- * @param {function} cb - Callback function.
- * @return {setImmediateCallback} With `this` as data.
- */
-// Constructor
-function Block (ed, schema, transaction, cb) {
-	this.scope = {
-		ed: ed,
-		schema: schema,
-		transaction: transaction,
-	};
-	if (cb) {
-		return setImmediate(cb, null, this);
-	}
-}
-
-// Private methods
-/**
- * Creates a blockReward instance.
- * @private
- */
-__private.blockReward = new BlockReward();
-
-/**
- * Gets address by public
- * @private
- * @implements {crypto.createHash}
- * @implements {bignum.fromBuffer}
- * @param {publicKey} publicKey
- * @return {address} address
- */
-__private.getAddressByPublicKey = function (publicKey) {
-	var publicKeyHash = crypto.createHash('sha256').update(publicKey.toString('hex'), 'hex').digest();
+	var publicKeyHash = crypto.createHash('sha256').update(publicKey, 'hex').digest();
 	var buffer = new Buffer(new RIPEMD160().update(publicKeyHash).digest('hex'));
 	var payload = new Buffer(21);
-	payload.writeUInt8(81, 0);
+	payload.writeUInt8(0x85, 0);
 	buffer.copy(payload, 1);
-	return 'ON'+bs58check.encode(payload);
+	return 'ONZ'+bs58check.encode(payload);
 };
 
 // Public methods
