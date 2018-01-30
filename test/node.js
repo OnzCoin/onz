@@ -75,7 +75,7 @@ if (process.env.SILENT === 'true') {
 	node.debug = console.log.bind(console, '[' + strftime('%F %T', new Date()) + ']');
 }
 
-// Random LSK amount
+// Random ONZ amount
 node.ONZ = Math.floor(Math.random() * (100000 * 100000000)) + 1;
 
 // Returns a random delegate name
@@ -102,7 +102,7 @@ node.randomProperty = function (obj, needKey) {
 	}
 };
 
-// Returns random LSK amount
+// Returns random ONZ amount
 node.randomONZ = function () {
 	return Math.floor(Math.random() * (10000 * 100000000)) + (1000 * 100000000);
 };

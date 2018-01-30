@@ -399,7 +399,7 @@ describe('transaction', function () {
 			var balanceKey = 'balance';
 			var res = transaction.checkBalance(amount, balanceKey, validTransaction, validSender);
 			expect(res.exceeded).to.equal(true);
-			expect(res.error).to.include('Account does not have enough LSK:');
+			expect(res.error).to.include('Account does not have enough ONZ:');
 		});
 
 		it('should be okay if insufficient balance from genesis account', function () {
@@ -688,7 +688,7 @@ describe('transaction', function () {
 			trsData.amount = node.constants.totalAmount;
 			createAndProcess(trsData, validSender, function (trs) {
 				transaction.verify(trs, validSender, {}, function (err) {
-					expect(err).to.include('Account does not have enough LSK:');
+					expect(err).to.include('Account does not have enough ONZ:');
 					done();
 				});
 			});

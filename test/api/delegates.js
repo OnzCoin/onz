@@ -62,7 +62,7 @@ describe('PUT /api/accounts/delegates without funds', function () {
 			delegates: ['+' + node.eAccount.publicKey]
 		}, function (err, res) {
 			node.expect(res.body).to.have.property('success').to.be.not.ok;
-			node.expect(res.body).to.have.property('error').to.match(/Account does not have enough LSK: [0-9]+L balance: 0/);
+			node.expect(res.body).to.have.property('error').to.match(/Account does not have enough ONZ: [0-9]+ balance: 0/);
 			done();
 		});
 	});
@@ -73,7 +73,7 @@ describe('PUT /api/accounts/delegates without funds', function () {
 			delegates: ['-' + node.eAccount.publicKey]
 		}, function (err, res) {
 			node.expect(res.body).to.have.property('success').to.be.not.ok;
-			node.expect(res.body).to.have.property('error').to.match(/Account does not have enough LSK: [0-9]+L balance: 0/);
+			node.expect(res.body).to.have.property('error').to.match(/Account does not have enough ONZ: [0-9]+ balance: 0/);
 			done();
 		});
 	});
@@ -93,7 +93,7 @@ describe('PUT /api/delegates without funds', function () {
 			username: account.username
 		}, function (err, res) {
 			node.expect(res.body).to.have.property('success').to.be.not.ok;
-			node.expect(res.body).to.have.property('error').to.match(/Account does not have enough LSK: [0-9]+L balance: 0/);
+			node.expect(res.body).to.have.property('error').to.match(/Account does not have enough ONZ: [0-9]+ balance: 0/);
 			done();
 		});
 	});

@@ -58,14 +58,14 @@ before(function (done) {
 
 before(function (done) {
 	setTimeout(function () {
-		// Send 20 LSK
+		// Send 20 ONZ
 		sendONZ(account2, 20*100000000, done);
 	}, 2000);
 });
 
 before(function (done) {
 	setTimeout(function () {
-		// Send 100 LSK
+		// Send 100 ONZ
 		sendONZ(account2, 100*100000000, done);
 	}, 2000);
 });
@@ -210,8 +210,8 @@ describe('GET /api/transactions', function () {
 		var limit = 10;
 		var offset = 0;
 		var orderBy = 'amount:asc';
-		var minAmount = 20*100000000; // 20 LSK
-		var maxAmount = 100*100000000; // 100 LSK
+		var minAmount = 20*100000000; // 20 ONZ
+		var maxAmount = 100*100000000; // 100 ONZ
 
 		var params = [
 			'minAmount=' + minAmount,
@@ -712,7 +712,7 @@ describe('PUT /api/transactions', function () {
 				recipientId: account2.address
 			}, function (err, res) {
 				node.expect(res.body).to.have.property('success').to.be.not.ok;
-				node.expect(res.body).to.have.property('error').to.match(/Account does not have enough LSK: [0-9]+L balance: [0-9.]+/);
+				node.expect(res.body).to.have.property('error').to.match(/Account does not have enough ONZ: [0-9]+ balance: [0-9.]+/);
 				done();
 			});
 		});

@@ -1,7 +1,7 @@
 {
     "port": 11000,
     "address": "0.0.0.0",
-    "version": "0.9.10",
+    "version": "0.9.11",
     "minVersion": ">=0.9.5",
     "fileLogLevel": "info",
     "logFileName": "logs/onz.log",
@@ -50,11 +50,11 @@
         "list": [
             {
 
-                "ip": "tnode1.onzcoin.com",
+                "ip": "tnode01.onzcoin.com",
                 "port": 10998
               },
               {
-                  "ip": "tnode2.onzcoin.com",
+                  "ip": "tnode02.onzcoin.com",
                   "port": 10998
   
               }
