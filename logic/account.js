@@ -42,7 +42,7 @@ function Account (db, schema, logger, cb) {
 	 * @property {boolean} secondSignature
 	 * @property {boolean} u_secondSignature
 	 * @property {string} u_username
-	 * @property {address} address - Uppercase, between 1 and 22 chars.
+	 * @property {address} address - ONZ plus 33 chars
 	 * @property {publicKey} publicKey
 	 * @property {publicKey} secondPublicKey
 	 * @property {number} balance - Between 0 and totalAmount from constants.
@@ -129,13 +129,11 @@ function Account (db, schema, logger, cb) {
 			filter: {
 				required: true,
 				type: 'string',
-				case: 'upper',
 				minLength: 1,
-				maxLength: 22
+				maxLength: 36
 			},
 			conv: String,
-			immutable: true,
-			expression: 'UPPER("address")'
+			immutable: true
 		},
 		{
 			name: 'publicKey',
@@ -287,7 +285,7 @@ function Account (db, schema, logger, cb) {
 			filter: {
 				type: 'string',
 				minLength: 1,
-				maxLength: 20
+				maxLength: 32
 			},
 			conv: String
 		},
@@ -520,9 +518,6 @@ Account.prototype.toDB = function (raw) {
 		}
 	});
 
-	// Normalize address
-	raw.address = String(raw.address).toUpperCase();
-
 	return raw;
 };
 
@@ -589,12 +584,6 @@ Account.prototype.getAll = function (filter, fields, cb) {
 	}
 	delete filter.sort;
 
-	if (typeof filter.address === 'string') {
-		filter.address = {
-			$upper: ['address', filter.address]
-		};
-	}
-
 	var sql = jsonSql.build({
 		type: 'select',
 		table: this.table,
@@ -624,10 +613,6 @@ Account.prototype.getAll = function (filter, fields, cb) {
 Account.prototype.set = function (address, fields, cb) {
 	// Verify public key
 	this.verifyPublicKey(fields.publicKey);
-
-	// Normalize address
-	address = String(address).toUpperCase();
-	fields.address = address;
 
 	var sql = jsonSql.build({
 		type: 'insertorupdate',
@@ -659,9 +644,6 @@ Account.prototype.merge = function (address, diff, cb) {
 
 	// Verify public key
 	this.verifyPublicKey(diff.publicKey);
-
-	// Normalize address
-	address = String(address).toUpperCase();
 
 	this.editable.forEach(function (value) {
 		var val, i;
