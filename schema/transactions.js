@@ -11,7 +11,7 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 20
+				maxLength: 32
 			},
 			type: {
 				type: 'integer',
@@ -22,7 +22,7 @@ module.exports = {
 				type: 'string',
 				format: 'address',
 				minLength: 1,
-				maxLength: 22
+				maxLength: 36
 			},
 			senderPublicKey: {
 				type: 'string',
@@ -36,13 +36,13 @@ module.exports = {
 				type: 'string',
 				format: 'address',
 				minLength: 1,
-				maxLength: 22
+				maxLength: 36
 			},
 			recipientId: {
 				type: 'string',
 				format: 'address',
 				minLength: 1,
-				maxLength: 22
+				maxLength: 36
 			},
 			amount: {
 				type: 'integer',
@@ -77,7 +77,7 @@ module.exports = {
 					type: 'string',
 					format: 'address',
 					minLength: 1,
-					maxLength: 22
+					maxLength: 36
 				}
 			},
 			recipientIds: {
@@ -87,7 +87,7 @@ module.exports = {
 					type: 'string',
 					format: 'address',
 					minLength: 1,
-					maxLength: 22
+					maxLength: 36
 				}
 			},
 			fromHeight: {
@@ -148,7 +148,7 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 20
+				maxLength: 32
 			}
 		},
 		required: ['id']
@@ -161,7 +161,7 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 20
+				maxLength: 32
 			}
 		},
 		required: ['id']
@@ -178,7 +178,7 @@ module.exports = {
 				type: 'string',
 				format: 'address',
 				minLength: 1,
-				maxLength: 22
+				maxLength: 36
 			}
 		}
 	},
@@ -200,7 +200,7 @@ module.exports = {
 				type: 'string',
 				format: 'address',
 				minLength: 1,
-				maxLength: 22
+				maxLength: 36
 			},
 			publicKey: {
 				type: 'string',
