@@ -35,7 +35,7 @@ describe('POST /peer/transactions', function () {
 
 				postTransaction(multiSigTx, function (err, res) {
 					node.expect(res.body).to.have.property('success').to.be.not.ok;
-					node.expect(res.body).to.have.property('message').to.match(/Account does not have enough ONZ: [0-9]+ balance: 0/);
+					node.expect(res.body).to.have.property('message').to.match(/Account does not have enough ONZ: [a-zA-Z0-9]+ balance: 0/);
 					done();
 				});
 			});

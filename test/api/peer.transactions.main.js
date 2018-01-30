@@ -98,7 +98,7 @@ describe('POST /peer/transactions', function () {
 
 			postTransaction(transaction, function (err, res) {
 				node.expect(res.body).to.have.property('success').to.be.not.ok;
-				node.expect(res.body).to.have.property('message').to.match(/Transaction is already processed: [0-9]+/);
+				node.expect(res.body).to.have.property('message').to.match(/Transaction is already processed: [a-zA-Z0-9]+/);
 				done();
 			});
 		});
@@ -115,7 +115,7 @@ describe('POST /peer/transactions', function () {
 			node.onNewBlock(function (err) {
 				postTransaction(transaction, function (err, res) {
 					node.expect(res.body).to.have.property('success').to.be.not.ok;
-					node.expect(res.body).to.have.property('message').to.match(/Transaction is already confirmed: [0-9]+/);
+					node.expect(res.body).to.have.property('message').to.match(/Transaction is already confirmed: [a-zA-Z0-9]+/);
 					done();
 				});
 			});
@@ -196,7 +196,7 @@ describe('POST /peer/transactions', function () {
 
 		postTransaction(transaction, function (err, res) {
 			node.expect(res.body).to.have.property('success').to.be.not.ok;
-			node.expect(res.body).to.have.property('message').to.match(/Account does not have enough ONZ: [0-9]+ balance: 0/);
+			node.expect(res.body).to.have.property('message').to.match(/Account does not have enough ONZ: [a-zA-Z0-9]+ balance: 0/);
 			done();
 		});
 	});
@@ -216,7 +216,7 @@ describe('POST /peer/transactions', function () {
 				node.async.doUntil(function (next) {
 					postTransaction(transaction2, function (err, res) {
 						node.expect(res.body).to.have.property('success').to.be.not.ok;
-						node.expect(res.body).to.have.property('message').to.match(/Account does not have enough ONZ: [0-9]+ balance: 1e-8/);
+						node.expect(res.body).to.have.property('message').to.match(/Account does not have enough ONZ: [a-zA-Z0-9]+ balance: 1e-8/);
 						count++;
 						return next();
 					});
