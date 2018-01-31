@@ -162,9 +162,11 @@ npm test -- test/lib/transactions.js
 ```
 
 ## Genesis block
+```
 dropdb 'onz_test' && dropdb 'onz_main' && createdb 'onz_test' && createdb 'onz_main'
 rm -R genesisBlock && mkdir genesisBlock && node tasks/createGenesisBlock.js
 mv genesisBlock/genesisBlock.json genesisBlock.json
+```
 
 ## Authors
 
