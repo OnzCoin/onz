@@ -7,13 +7,17 @@ var bip39 = require('bip39');
 var ByteBuffer = require('bytebuffer');
 var bignum = require('../helpers/bignum.js');
 
-var totalpremine = 2100000000000000;
-var network_name = "mainnet";
+var totalpremine = 10000000000000000;
 var private_dir = './genesisBlock';
 
+var genesis_vote = {
+  secret: "slam canyon garage split chat match float hurdle eagle tube theme gadget",
+  address: "ONZgEDjjxY1una6AaYHfwXjiaT32KZnnwUHG"
+}
+
 var genesisAccounts = [
-                        {address:"ONZgEDjjxY1una6AaYHfwXjiaT32KZnnwUHG", total:13940327},
-                        {address:"ONZfyLzBNeFBrKAiKCGdD7sKdakA73itzGET", total:1000000000}
+                        {address:genesis_vote.address, total:2000000000000000},
+                        {address:"ONZfyLzBNeFBrKAiKCGdD7sKdakA73itzGET", total:8000000000000000}
                       ];
 
 makeKeypair = function (seed) {
@@ -152,18 +156,12 @@ create = function (data) {
 var delegates = [];
 var transactions = [];
 var remainingfund = {};
+var votes = [];
 
 var genesis = {
   passphrase: bip39.generateMnemonic(),
   balance: totalpremine
 };
-
-var premine = {
-  passphrase: bip39.generateMnemonic()
-};
-
-premine.publicKey = onzjs.crypto.getKeys(premine.passphrase).publicKey;
-premine.address = onzjs.crypto.getAddress(premine.publicKey);
 
 genesis.publicKey = onzjs.crypto.getKeys(genesis.passphrase).publicKey;
 genesis.address = onzjs.crypto.getAddress(genesis.publicKey);
@@ -189,7 +187,17 @@ for(var i=0; i<102; i++){
   transactions.push(createDelegateTx);
 
   delegates.push(delegate);
+  votes.push("+"+delegate.publicKey);
 }
+//voting
+var genesis_vote_pk = onzjs.crypto.getKeys(genesis_vote.secret).publicKey;
+var VoteTX = onzjs.vote.createVote(genesis_vote.secret, votes, null, 0);
+VoteTX.fee = 0;
+VoteTX.timestamp = 0;
+VoteTX.senderId = delegate.address;
+VoteTX.signature = onzjs.crypto.sign(VoteTX,onzjs.crypto.getKeys(delegate.passphrase));
+VoteTX.id = onzjs.crypto.getId(VoteTX);
+transactions.push(VoteTX);
 
 var total = 0;
 
@@ -198,25 +206,14 @@ for(var i=0; i < genesisAccounts.length; i++){
   total += account.total;
   console.log(account.address);
   console.log(account.total);
-	var premineTx = onzjs.transaction.createTransaction(account.address, account.total, premine.passphrase, null, 0);
+	var premineTx = onzjs.transaction.createTransaction(account.address, account.total, genesis.passphrase, null, 0);
 	premineTx.fee = 0;
 	premineTx.timestamp = 0;
-	premineTx.senderId = premine.address;
-	premineTx.signature = onzjs.crypto.sign(premineTx,onzjs.crypto.getKeys(premine.passphrase));
+	premineTx.senderId = genesis.address;
+	premineTx.signature = onzjs.crypto.sign(premineTx,onzjs.crypto.getKeys(genesis.passphrase));
 	premineTx.id = onzjs.crypto.getId(premineTx);
 	transactions.push(premineTx);
 }
-
-remainingfund.total = totalpremine - total;
-
-var preminefund = onzjs.transaction.createTransaction(genesis.address, remainingfund.total, premine.passphrase, null, 0);
-
-preminefund.fee = 0;
-preminefund.timestamp = 0;
-preminefund.senderId = premine.address;
-preminefund.signature = onzjs.crypto.sign(preminefund,onzjs.crypto.getKeys(premine.passphrase));
-preminefund.id = onzjs.crypto.getId(preminefund);
-transactions.push(preminefund);
 
 var genesisBlock = create({
   keypair: onzjs.crypto.getKeys(genesis.passphrase),
