@@ -613,7 +613,7 @@ Account.prototype.getAll = function (filter, fields, cb) {
 Account.prototype.set = function (address, fields, cb) {
 	// Verify public key
 	this.verifyPublicKey(fields.publicKey);
-
+	fields.address = address;
 	var sql = jsonSql.build({
 		type: 'insertorupdate',
 		table: this.table,
