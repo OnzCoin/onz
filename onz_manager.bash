@@ -11,9 +11,9 @@ mkdir -p $root_path/logs
 logfile=$root_path/logs/onzcoin.log
 
 set_branch() {
-  if [ "$(grep "52fd9a2f0857ca94510fae33c5e71b34eb5f9fa45813c5bbf6ee796c3731dbd9" $ONZ_CONFIG )" ];then
+  if [ "$(grep "xxxxxxxxxxxxxxxxxxxxUSE_MASTER_FOR_DEVELOPMENTxxxxxxxxxxxxxxxxxxxxxxxx" $ONZ_CONFIG )" ];then
     GIT_BRANCH="master"
-  elif [ "$(grep "xxxxxxxxxxxxxxxxxxxxUSE_MASTER_FOR_DEVELOPMENTxxxxxxxxxxxxxxxxxxxxxxxx" $ONZ_CONFIG )" ];then
+  elif [ "$(grep "52fd9a2f0857ca94510fae33c5e71b34eb5f9fa45813c5bbf6ee796c3731dbd9" $ONZ_CONFIG )" ];then
     GIT_BRANCH="testnet"
   else
     GIT_BRANCH="unknown"
