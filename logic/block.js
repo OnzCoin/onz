@@ -429,7 +429,7 @@ Block.prototype.objectNormalize = function (block) {
  * @return {string} id string
  */
 Block.prototype.getId = function (block) {
-	var hash = crypto.createHash('sha256').update(this.getBytes(block)).digest();
+	var hash = crypto.createHash('sha256').update(this.getBytes(block)).digest('hex');
 	return hash;
 };
 
