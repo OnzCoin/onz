@@ -11,18 +11,17 @@ Onz is a next generation crypto-currency and decentralized application platform,
 
 ## Prerequisites - In order
 
+  ```
   useradd -d /home/onzcoin -m onzcoin
   groupadd sudo
   usermod -a -G sudo onzcoin
   passwd onzcoin
+  ```
 
-- Tool chain components -- Used for compiling dependencies
+- Tool chain components + git
 
-  `sudo apt-get install -y python build-essential curl automake autoconf libtool`
+  `sudo apt-get install -y python build-essential curl automake autoconf libtool git`
 
-- Git (<https://github.com/git/git>) -- Used for cloning and updating Onz
-
-  `sudo apt-get install -y git`
 
 - Node.js (<https://nodejs.org/>) -- Node.js serves as the underlying engine for code execution.
 
