@@ -271,7 +271,7 @@ Chain.prototype.applyGenesisBlock = function (block, cb) {
 	}, function (err) {
 		if (err) {
 			// If genesis block is invalid, kill the node...
-			console.log("Invalid genesis block");
+			console.log("Invalid genesis block: " + JSON.stringify(err));
 			return process.exit(0);
 		} else {
 			console.log("Valid genesis block");
