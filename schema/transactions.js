@@ -148,7 +148,7 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 32
+				maxLength: 64
 			}
 		},
 		required: ['id']
@@ -161,7 +161,7 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 32
+				maxLength: 64
 			}
 		},
 		required: ['id']
