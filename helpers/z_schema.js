@@ -25,11 +25,13 @@ var ip = require('ip');
 var z_schema = require('z-schema');
 
 z_schema.registerFormat('id', function (str) {
-	if (str.length === 0) {
-		return true;
+	try {
+		Buffer.from(str, 'hex');
+	} catch (e) {
+		return false;
 	}
 
-	return /^[0-9]+$/g.test(str);
+	return true;
 });
 
 z_schema.registerFormat('address', function (str) {
