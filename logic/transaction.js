@@ -996,7 +996,7 @@ Transaction.prototype.schema = {
 			type: 'string',
 			format: 'id',
 			minLength: 1,
-			maxLength: 32
+			maxLength: 64
 		},
 		height: {
 			type: 'integer'
@@ -1005,7 +1005,7 @@ Transaction.prototype.schema = {
 			type: 'string',
 			format: 'id',
 			minLength: 1,
-			maxLength: 32
+			maxLength: 64
 		},
 		type: {
 			type: 'integer'
