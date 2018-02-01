@@ -156,7 +156,6 @@ create = function (data) {
 var delegates = [];
 var transactions = [];
 var remainingfund = {};
-var votes = [];
 
 var genesis = {
   passphrase: bip39.generateMnemonic(),
@@ -187,17 +186,18 @@ for(var i=0; i<102; i++){
   transactions.push(createDelegateTx);
 
   delegates.push(delegate);
+  //voting, split per one to fit different limits
+  var votes = [];
   votes.push("+"+delegate.publicKey);
+  var genesis_vote_pk = onzjs.crypto.getKeys(genesis_vote.secret).publicKey;
+  var VoteTX = onzjs.vote.createVote(genesis_vote.secret, votes, null, 0);
+  VoteTX.fee = 0;
+  VoteTX.timestamp = 0;
+  VoteTX.senderId = delegate.address;
+  VoteTX.signature = onzjs.crypto.sign(VoteTX,onzjs.crypto.getKeys(delegate.passphrase));
+  VoteTX.id = onzjs.crypto.getId(VoteTX);
+  transactions.push(VoteTX);
 }
-//voting
-var genesis_vote_pk = onzjs.crypto.getKeys(genesis_vote.secret).publicKey;
-var VoteTX = onzjs.vote.createVote(genesis_vote.secret, votes, null, 0);
-VoteTX.fee = 0;
-VoteTX.timestamp = 0;
-VoteTX.senderId = delegate.address;
-VoteTX.signature = onzjs.crypto.sign(VoteTX,onzjs.crypto.getKeys(delegate.passphrase));
-VoteTX.id = onzjs.crypto.getId(VoteTX);
-transactions.push(VoteTX);
 
 var total = 0;
 
