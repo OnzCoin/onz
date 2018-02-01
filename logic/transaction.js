@@ -165,7 +165,7 @@ Transaction.prototype.multisign = function (keypair, trs) {
  * @return {string} id
  */
 Transaction.prototype.getId = function (trs) {
-	var hash = crypto.createHash('sha256').update(getBytes(trs).toString('hex'), 'hex').digest('hex');
+	var hash = crypto.createHash('sha256').update(this.getBytes(trs).toString('hex'), 'hex').digest('hex');
 	return hash;
 };
 
