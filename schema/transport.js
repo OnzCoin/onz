@@ -63,7 +63,7 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 20
+				maxLength: 64
 			}
 		},
 	},
@@ -102,7 +102,7 @@ module.exports = {
 						type: 'string',
 						format: 'id',
 						minLength: 1,
-						maxLength: 20
+						maxLength: 64
 					},
 					signature: {
 						type: 'string',

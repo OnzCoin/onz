@@ -15,7 +15,7 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 32
+				maxLength: 64
 			}
 		},
 		required: ['id']
@@ -58,7 +58,7 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 32
+				maxLength: 64
 			},
 			height: {
 				type: 'integer',
@@ -74,13 +74,13 @@ module.exports = {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 32
+				maxLength: 64
 			},
 			previousBlock: {
 				type: 'string',
 				format: 'id',
 				minLength: 1,
-				maxLength: 32
+				maxLength: 64
 			},
 			height: {
 				type: 'integer',
