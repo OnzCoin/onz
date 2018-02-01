@@ -11,6 +11,11 @@ Onz is a next generation crypto-currency and decentralized application platform,
 
 ## Prerequisites - In order
 
+  useradd -d /home/onzcoin -m onzcoin
+  groupadd sudo
+  usermod -a -G sudo onzcoin
+  passwd onzcoin
+
 - Tool chain components -- Used for compiling dependencies
 
   `sudo apt-get install -y python build-essential curl automake autoconf libtool`
@@ -68,30 +73,6 @@ cd onz
 npm install
 ```
 
-Install Onz Node, a specialized version of Node.js used to execute dapps within a virtual machine:
-
-```
-wget https://downloads.onzcoin.com/onz-node/onz-node-Linux-x86_64.tar.gz
-tar -zxvf onz-node-Linux-x86_64.tar.gz
-```
-
-Onz Node has to be in `[ONZ_DIR]/nodejs/node`.
-
-Load git submodules ([onz-ui](https://github.com/OnzCoin/onz-ui) and [onz-js](https://github.com/OnzCoin/onz-js)):
-
-```
-git submodule init
-git submodule update
-```
-
-Build the user-interface:
-
-```
-cd public
-npm install
-bower install
-grunt release
-```
 
 ## Managing Onz
 
