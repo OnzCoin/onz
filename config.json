@@ -49,15 +49,13 @@
         "enabled": true,
         "list": [
             {
-
-                "ip": "tnode01.onzcoin.com",
+                "ip": "198.199.109.169",
                 "port": 10998
-              },
-              {
-                  "ip": "tnode02.onzcoin.com",
-                  "port": 10998
-  
-              }
+            },
+            {
+                "ip": "162.243.137.245",
+                "port": 10998
+            }
         ],
         "access": {
             "blackList": []
