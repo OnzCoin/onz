@@ -285,7 +285,7 @@ function Account (db, schema, logger, cb) {
 			filter: {
 				type: 'string',
 				minLength: 1,
-				maxLength: 32
+				maxLength: 64
 			},
 			conv: String
 		},
