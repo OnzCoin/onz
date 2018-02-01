@@ -7,7 +7,7 @@ var bip39 = require('bip39');
 var ByteBuffer = require('bytebuffer');
 var bignum = require('../helpers/bignum.js');
 
-var totalpremine = 10000000000000000;
+var totalpremine = 18000000000000000;
 var private_dir = './genesisBlock';
 
 var genesis_vote = {
@@ -16,8 +16,8 @@ var genesis_vote = {
 }
 
 var genesisAccounts = [
-                        {address:genesis_vote.address, total:2000000000000000},
-                        {address:"ONZfyLzBNeFBrKAiKCGdD7sKdakA73itzGET", total:8000000000000000}
+                        {address:genesis_vote.address, total:8000000000000000},
+                        {address:"ONZfyLzBNeFBrKAiKCGdD7sKdakA73itzGET", total:10000000000000000}
                       ];
 
 makeKeypair = function (seed) {
