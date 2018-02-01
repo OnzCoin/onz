@@ -13,7 +13,7 @@ logfile=$root_path/logs/onzcoin.log
 set_branch() {
   if [ "$(grep "xxxxxxxxxxxxxxxxxxxxUSE_MASTER_FOR_DEVELOPMENTxxxxxxxxxxxxxxxxxxxxxxxx" $ONZ_CONFIG )" ];then
     GIT_BRANCH="master"
-  elif [ "$(grep "52fd9a2f0857ca94510fae33c5e71b34eb5f9fa45813c5bbf6ee796c3731dbd9" $ONZ_CONFIG )" ];then
+  elif [ "$(grep "5e4182dfd5e50072651e0cdb75020c449941da694880fcea5aa4badf45e9e0d2" $ONZ_CONFIG )" ];then
     GIT_BRANCH="testnet"
   else
     GIT_BRANCH="unknown"
