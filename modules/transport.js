@@ -546,13 +546,9 @@ Transport.prototype.isLoaded = function () {
  */
 Transport.prototype.internal = {
 	blocksCommon: function (ids, peer, extraLogMessage, cb) {
-		console.log('Ids:'+ids);
-		console.log('Ids:'+JSON.stringify(ids));
 		ids = ids.replace('"','');
 		ids = ids.replace(' ','');
 		var escapedIds = ids.split(',');
-			console.log('escapedIds:'+JSON.stringify(escapedIds));
-			console.log('escapedIds.lenght:'+escapedIds.lenght);
 		if (!escapedIds.length) {
 			library.logger.debug('Common block request validation failed', {err: 'ESCAPE', req: ids});
 
