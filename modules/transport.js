@@ -548,17 +548,9 @@ Transport.prototype.internal = {
 	blocksCommon: function (ids, peer, extraLogMessage, cb) {
 		console.log('Ids:'+ids);
 		console.log('Ids:'+JSON.stringify(ids));
-		var escapedIds = ids
-			.replace(/['"]+/g, '')
-			.split(',')
-			.filter(function (id) {
-				try {
-					Buffer.from(str, 'hex');
-				} catch (e) {
-					return false;
-				}
-				return true;
-			});
+		ids = ids.replace('"','');
+		ids = ids.replace(' ','');
+		var escapedIds = ids.split(',');
 			console.log('escapedIds:'+JSON.stringify(escapedIds));
 			console.log('escapedIds.lenght:'+escapedIds.lenght);
 		if (!escapedIds.length) {
