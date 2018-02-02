@@ -548,13 +548,15 @@ Transport.prototype.isLoaded = function () {
 Transport.prototype.internal = {
 	blocksCommon: function (ids, peer, extraLogMessage, cb) {
 		var escapedIds = ids
-			// Remove quotes
 			.replace(/['"]+/g, '')
-			// Separate by comma into an array
 			.split(',')
-			// Reject any non-numeric values
 			.filter(function (id) {
-				return /^[0-9]+$/.test(id);
+				try {
+					Buffer.from(str, 'hex');
+				} catch (e) {
+					return false;
+				}
+				return true;
 			});
 
 		if (!escapedIds.length) {
@@ -589,7 +591,7 @@ Transport.prototype.internal = {
 			return setImmediate(cb, null, {blocks: data});
 		});
 	},
-
+	
 	postBlock: function (block, peer, extraLogMessage, cb) {
 		try {
 			block = library.logic.block.objectNormalize(block);
