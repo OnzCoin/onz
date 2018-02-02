@@ -364,7 +364,6 @@ Transport.prototype.getFromPeer = function (peer, options, cb) {
 	if (options.data) {
 		req.body = options.data;
 	}
-
 	popsicle.request(req)
 		.use(popsicle.plugins.parse(['json'], false))
 		.then(function (res) {
@@ -547,6 +546,8 @@ Transport.prototype.isLoaded = function () {
  */
 Transport.prototype.internal = {
 	blocksCommon: function (ids, peer, extraLogMessage, cb) {
+		console.log('Ids:'+ids;
+		console.log('Ids:'+JSON.stringify(ids));
 		var escapedIds = ids
 			.replace(/['"]+/g, '')
 			.split(',')
@@ -558,7 +559,8 @@ Transport.prototype.internal = {
 				}
 				return true;
 			});
-
+			console.log('escapedIds:'+JSON.stringify(escapedIds));
+			console.log('escapedIds.lenght:'+escapedIds.lenght);
 		if (!escapedIds.length) {
 			library.logger.debug('Common block request validation failed', {err: 'ESCAPE', req: ids});
 
