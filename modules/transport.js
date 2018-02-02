@@ -546,7 +546,7 @@ Transport.prototype.isLoaded = function () {
  */
 Transport.prototype.internal = {
 	blocksCommon: function (ids, peer, extraLogMessage, cb) {
-		console.log('Ids:'+ids;
+		console.log('Ids:'+ids);
 		console.log('Ids:'+JSON.stringify(ids));
 		var escapedIds = ids
 			.replace(/['"]+/g, '')
