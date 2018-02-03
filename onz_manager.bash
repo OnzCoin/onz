@@ -218,35 +218,6 @@ install_onz() {
     return 0;
 }
 
-# (re)Install wallet
-# ---------------------
-function install_wallet {
-  cd $HOME
-    
-    ## Check if directory exists
-    if [ -d "$root_path" ]; then
-      cd $root_path
-
-      echo -n "Installing wallet... "
-
-      if [[ -d "public" ]]; then
-          echo -e "Found an existing public folder. Will remove it now.."
-          rm -rf public/
-      fi
-
-      git clone -b $GIT_BRANCH $GIT_ROOT/onz-wallet public &>> $logfile || { echo -n "Could not clone git wallet source. Exiting." && exit 1; }
-      cd public && npm install &>> $logfile || { echo -n "Could not install web wallet node modules. Exiting." && exit 1; }
-
-      npm run grunt-release &>> $logfile || { echo -e "\n\nCould not build web wallet release. Exiting." && exit 1; }
-      echo -e "Done."
-      echo -e "---- PLEASE RELOAD YOUR NODE ----"
-
-  else
-      echo -e "Directory $root_path does not exist! Nothing to install.."
-      exit 1;
-    fi
-}
-
 update_client() {
 
     if [[ -f config.json ]]; then
@@ -353,10 +324,6 @@ case $1 in
       echo ""
       echo "onz successfully installed"
     ;;
-    "install_wallet")
-      install_wallet
-      sleep 2
-    ;;
     "update_client")
       start_log
       stop_onz
@@ -403,7 +370,7 @@ case $1 in
     ;;
 
 *)
-    echo 'Available options: install, install_wallet, reload (stop/start), rebuild (official snapshot), clean_start (drop database), start, stop, update_client'
+    echo 'Available options: install, reload (stop/start), rebuild (official snapshot), clean_start (drop database), start, stop, update_client'
     echo 'Usage: ./onz_manager.bash install'
     exit 1
 ;;
