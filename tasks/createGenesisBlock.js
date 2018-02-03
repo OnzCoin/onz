@@ -11,13 +11,13 @@ var totalpremine = 18000000000000000;
 var private_dir = './genesisBlock';
 
 var genesis_vote = {
-  secret: "slam canyon garage split chat match float hurdle eagle tube theme gadget",
-  address: "ONZgEDjjxY1una6AaYHfwXjiaT32KZnnwUHG"
+  secret: "secret secret secret secret secret secret secret secret secret secret secret secret",
+  address: "ONZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 }
 
 var genesisAccounts = [
                         {address:genesis_vote.address, total:8000000000000000},
-                        {address:"ONZfyLzBNeFBrKAiKCGdD7sKdakA73itzGET", total:10000000000000000}
+                        {address:"ONZbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", total:10000000000000000}
                       ];
 
 makeKeypair = function (seed) {
