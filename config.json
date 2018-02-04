@@ -55,18 +55,6 @@
             {
                 "ip": "45.77.190.169",
                 "port": 10998
-            },
-            {
-                "ip": "207.148.17.251",
-                "port": 10998
-            },
-            {
-                "ip": "128.199.169.125",
-                "port": 10998
-            },
-            {
-                "ip": "162.243.137.245",
-                "port": 10998
             }
         ],
         "access": {
@@ -119,5 +107,5 @@
         "masterpassword": "ve6qTYsDoPiY",
         "autoexec": []
     },
-    "nethash": "570f81c67882dbcbebf8b84205a78a42cd98561683f878dae8e8c7ea2f54033b"
+    "nethash": "aa14b4d84260e00b6fc033c022a25965629ab0e8a4aafc77e64cad4cf0dc2e00"
 }
