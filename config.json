@@ -2,7 +2,7 @@
     "port": 10998,
     "address": "0.0.0.0",
     "version": "0.9.11",
-    "minVersion": ">=0.9.5",
+    "minVersion": ">=0.9.11",
     "fileLogLevel": "info",
     "logFileName": "logs/onz.log",
     "consoleLogLevel": "debug",
