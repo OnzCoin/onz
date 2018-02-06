@@ -9,149 +9,62 @@ Onz is a next generation crypto-currency and decentralized application platform,
 
 **NOTE:** The following information is applicable to: **Ubuntu 14.04, 16.04 (LTS) or 16.10 - x86_64**.
 
-## Prerequisites - In order
+## Prerequisites
+
+- Make sure the following ports are opened.
 
   ```
-  useradd -d /home/onzcoin -m onzcoin
-  groupadd sudo
-  usermod -a -G sudo onzcoin
-  passwd onzcoin
+  MAINNET: 11000 and 11001
+  TESTNET: 10998 and 10999
   ```
 
-- Tool chain components + git
-
-  `sudo apt-get install -y python build-essential curl automake autoconf libtool git`
-
-
-- Node.js (<https://nodejs.org/>) -- Node.js serves as the underlying engine for code execution.
-
-  System wide via package manager:
-
-  ```
-  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-  sudo apt-get install -y nodejs
-  ```
-
-  Locally using [nvm](https://github.com/creationix/nvm):
-
-  ```
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-  nvm install v6.10.1
-  ```
-
-- Install PostgreSQL (version 9.6.2):
-
-  ```
-  curl -sL "https://downloads.onzcoin.com/scripts/setup_postgresql.Linux" | bash -
-  sudo -u postgres createuser --createdb $USER
-  createdb onz_test
-  createdb onz_main
-  sudo -u postgres psql -d onz_test -c "alter user "$USER" with password 'password';"
-  sudo -u postgres psql -d onz_main -c "alter user "$USER" with password 'password';"
-  ```
-
-- Bower (<http://bower.io/>) -- Bower helps to install required JavaScript dependencies.
-
-  `npm install -g bower`
-
-- Grunt.js (<http://gruntjs.com/>) -- Grunt is used to compile the frontend code and serves other functions.
-
-  `npm install -g grunt-cli`
-
-- PM2 (<https://github.com/Unitech/pm2>) -- PM2 manages the node process for Onz (Optional)
-
-  `npm install -g pm2`
 
 ## Installation Steps
 
-Clone the Onz repository using Git and initialize the modules.
+Clone the Onz repository to your home directory using Git.
 
 ```
+cd ~
 git clone https://github.com/OnzCoin/onz.git
-cd onz
-npm install
 ```
 
+Go to the onz directory and run the install command.
+
+```
+cd onz
+./onz_manager.bash install
+```
+
+After installation complete, run the clean_start to start up the node.
+
+```
+./onz_manager.bash clean_start
+```
 
 ## Managing Onz
 
-To test that Onz is built and configured correctly, run the following command:
+To start the node, run the following command:
 
-`node app.js`
+`./onz_manager.bash start`
 
-In a browser navigate to: <http://localhost:11000> (for the mainnet) or <http://localhost:10998> (for the testnet). If Onz is running on a remote system, switch `localhost` for the external IP Address of the machine.
+To reload the node after modify config file, run the following command:
 
-Once the process is verified as running correctly, `CTRL+C` and start the process with `pm2`. This will fork the process into the background and automatically recover the process if it fails.
+`./onz_manager.bash reload`
 
-`pm2 start --name onz app.js`
+To stop the node, run the following command:
 
-After the process is started, its runtime status and log location can be retrieved by issuing the following command:
+`./onz_manager.bash stop`
 
-`pm2 show onz`
+To check the status and block height, run the following command:
 
-To stop Onz after it has been started with `pm2`, issue the following command:
+`./onz_manager.bash status`
 
-`pm2 stop onz`
-
-**NOTE:** The **port**, **address** and **config-path** can be overridden by providing the relevant command switch:
-
-```
-pm2 start --name onz app.js -- -p [port] -a [address] -c [config-path]
-```
-
-## Tests
-
-Before running any tests, please ensure Onz is configured to run on the same testnet that is used by the test-suite.
-
-Replace **config.json** and **genesisBlock.json** with the corresponding files under the **test** directory:
-
-```
-cp test/config.json test/genesisBlock.json .
-```
-
-**NOTE:** If the node was started with a different genesis block previous, trauncate the database before running tests.
-
-```
-dropdb onz_test
-createdb onz_test
-```
-
-**NOTE:** The master passphrase for this genesis block is as follows:
-
-```
-wagon stock borrow episode laundry kitten salute link globe zero feed marble
-```
-
-Launch Onz (runs on port 4000):
-
-```
-node app.js
-```
-
-Run the test suite:
-
-```
-npm test
-```
-
-Run individual tests:
-
-```
-npm test -- test/lib/accounts.js
-npm test -- test/lib/transactions.js
-```
-
-## Genesis block
-```
-dropdb 'onz_test' && dropdb 'onz_main' && createdb 'onz_test' && createdb 'onz_main'
-rm -R genesisBlock && mkdir genesisBlock && node tasks/createGenesisBlock.js
-mv genesisBlock/genesisBlock.json genesisBlock.json
-```
 
 ## Authors
 
 - Kan Wong <kan@onzcoin.com>
 - Mars Yau <mars@onzcoin.com>
+- Karek <karek314@protonmail.ch>
 - Boris Povod <boris@crypti.me>
 - Pavel Nekrasov <landgraf.paul@gmail.com>
 - Sebastian Stupurac <stupurac.sebastian@gmail.com>
