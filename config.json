@@ -1,8 +1,8 @@
 {
     "port": 10998,
     "address": "0.0.0.0",
-    "version": "0.9.12",
-    "minVersion": ">=0.9.12",
+    "version": "0.9.13",
+    "minVersion": ">=0.9.13",
     "fileLogLevel": "info",
     "logFileName": "logs/onz.log",
     "consoleLogLevel": "none",
