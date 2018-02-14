@@ -1,5 +1,5 @@
 {
-    "port": 10998,
+    "port": 11000,
     "address": "0.0.0.0",
     "version": "0.9.13",
     "minVersion": ">=0.9.13",
@@ -12,7 +12,7 @@
     "db": {
         "host": "localhost",
         "port": 5432,
-        "database": "onz_test",
+        "database": "onz_main",
         "user": "onzcoin",
         "password": "password",
         "poolSize": 95,
@@ -49,12 +49,12 @@
         "enabled": true,
         "list": [
             {
-                "ip": "198.199.109.169",
-                "port": 10998
+                "ip": "127.0.0.1",
+                "port": 11000
             },
             {
-                "ip": "45.77.190.169",
-                "port": 10998
+                "ip": "127.0.0.1",
+                "port": 11000
             }
         ],
         "access": {
@@ -107,5 +107,5 @@
         "masterpassword": "",
         "autoexec": []
     },
-    "nethash": "aa14b4d84260e00b6fc033c022a25965629ab0e8a4aafc77e64cad4cf0dc2e00"
+    "nethash": "ef56692f7973f7a8e82d6bd5bc68d5f514e4c3ed97d4cfca0345fddd0f421999"
 }
