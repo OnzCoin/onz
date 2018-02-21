@@ -23,9 +23,16 @@ Onz is a next generation crypto-currency and decentralized application platform,
 
 Clone the Onz repository to your home directory using Git.
 
+MAINNET:
 ```
 cd ~
 git clone https://github.com/OnzCoin/onz.git
+```
+
+TESTNET:
+```
+cd ~
+git clone -b testnet https://github.com/OnzCoin/onz.git
 ```
 
 Go to the onz directory and run the install command.
