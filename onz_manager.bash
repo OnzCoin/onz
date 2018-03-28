@@ -331,13 +331,12 @@ case $1 in
     "lastlog")
       echo ""
       echo ""
-      echo "##################################"
       echo "Last 500 lines from logs/onz.log"
+      echo "##################################"
       tail -n 500 logs/onz.log
       echo "##################################"
       echo ""
       echo ""
-      tail -f logs/onz.log
     ;;
     "update_client")
       start_log
