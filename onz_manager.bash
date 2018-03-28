@@ -374,7 +374,7 @@ case $1 in
     ;;
 
 *)
-    echo 'Available options: install, reload (stop/start), rebuild (official snapshot), clean_start (drop database), start, stop, update_client'
+    echo 'Available options: install, reload (stop/start), rebuild (official snapshot), clean_start (drop database), logs, start, stop, update_client'
     echo 'Usage: ./onz_manager.bash install'
     exit 1
 ;;
