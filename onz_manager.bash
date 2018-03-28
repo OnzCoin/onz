@@ -324,6 +324,10 @@ case $1 in
       echo ""
       echo "onz successfully installed"
     ;;
+    "logs")
+      echo "Real time logs for ONZ process... [CTRL+C to exit]"
+      tail -f logs/onz.log
+    ;;
     "update_client")
       start_log
       stop_onz
