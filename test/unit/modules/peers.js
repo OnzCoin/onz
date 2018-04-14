@@ -28,7 +28,7 @@ describe('peers', function () {
 			upsert: sinon.stub(),
 			remove: sinon.stub()
 		};
-		});
+	});
 
 	before(function (done) {
 		modulesLoader.initAllModules(function (err, __modules) {
@@ -70,7 +70,7 @@ describe('peers', function () {
 
 		after(function () {
 			process.env['NODE_ENV'] = '';
-				});
+		});
 
 		beforeEach(function (done) {
 			peers.list(validOptions, function (err, peersResult) {
@@ -85,7 +85,7 @@ describe('peers', function () {
 			before(function () {
 				peersLogicMock.list.reset();
 				peersLogicMock.list.returns([]);
-				});
+			});
 
 			it('should return an empty array', function () {
 				expect(listResult).to.be.an('array').and.to.be.empty;
@@ -99,11 +99,11 @@ describe('peers', function () {
 					return generateRandomActivePeer();
 				});
 				peersLogicMock.list.returns(randomPeers);
-				});
+			});
 
 			it('should return all 1000 peers', function () {
 				expect(listResult).be.an('array').and.have.lengthOf(100);
-					});
+			});
 
 			describe('options.limit', function () {
 
@@ -114,16 +114,16 @@ describe('peers', function () {
 					before(function () {
 						validLimit = randomInt(1, (1000 - 1));
 						validOptions.limit = validLimit;
-				});
+					});
 
 					afterEach(function () {
 						// List arguments are mutated - needs to be overwritten after every test
 						validOptions.limit = validLimit;
-			});
+					});
 
 					after(function () {
 						delete validOptions.limit;
-		});
+					});
 
 					it('should return up to [options.limit] results', function () {
 						expect(listResult).be.an('array').and.have.lengthOf(validLimit);
@@ -134,9 +134,9 @@ describe('peers', function () {
 
 					it('should return [constants.maxPeers] results', function () {
 						expect(listResult).be.an('array').and.have.lengthOf(constants.maxPeers);
+					});
 				});
 			});
-		});
 
 			describe('options.broadhash', function () {
 
@@ -366,7 +366,7 @@ describe('peers', function () {
 			peersLogicMock.remove.reset();
 			peersLogicMock.remove.returns(validLogicRemoveResult);
 			removeResult = peers.remove(validIp, validPort);
-				});
+		});
 
 		describe('when removable peer is frozen', function () {
 
@@ -380,7 +380,7 @@ describe('peers', function () {
 					port: validPort
 				}];
 				loggerDebugSpy = sinon.spy(modulesLoader.scope.logger, 'debug');
-				});
+			});
 
 			after(function () {
 				modulesLoader.scope.config.peers.list = originalFrozenPeersList;

@@ -472,10 +472,10 @@ describe('PUT /api/dapps/transaction', function () {
 		});
 
 		it('using integer should fail', function (done) {
-		validParams.multisigAccountPublicKey = 1;
+			validParams.multisigAccountPublicKey = 1;
 
-		putTransaction(validParams, function (err, res) {
-			node.expect(res.body).to.have.property('success').to.not.be.ok;
+			putTransaction(validParams, function (err, res) {
+				node.expect(res.body).to.have.property('success').to.not.be.ok;
 				node.expect(res.body).to.have.property('error').to.equal('Multisig request is not allowed');
 				done();
 			});
@@ -487,9 +487,9 @@ describe('PUT /api/dapps/transaction', function () {
 			putTransaction(validParams, function (err, res) {
 				node.expect(res.body).to.have.property('success').to.not.be.ok;
 				node.expect(res.body).to.have.property('error').to.equal('Multisig request is not allowed');
-			done();
+				done();
+			});
 		});
-	});
 
 		it('using empty object should fail', function (done) {
 			validParams.multisigAccountPublicKey = {};
@@ -847,10 +847,10 @@ describe('PUT /api/dapps/withdrawal', function () {
 		});
 		
 		it('using integer should fail', function (done) {
-		validParams.multisigAccountPublicKey = 1;
+			validParams.multisigAccountPublicKey = 1;
 
-		putWithdrawal(validParams, function (err, res) {
-			node.expect(res.body).to.have.property('success').to.not.be.ok;
+			putWithdrawal(validParams, function (err, res) {
+				node.expect(res.body).to.have.property('success').to.not.be.ok;
 				node.expect(res.body).to.have.property('error').to.equal('Multisig request is not allowed');
 				done();
 			});
@@ -862,9 +862,9 @@ describe('PUT /api/dapps/withdrawal', function () {
 			putWithdrawal(validParams, function (err, res) {
 				node.expect(res.body).to.have.property('success').to.not.be.ok;
 				node.expect(res.body).to.have.property('error').to.equal('Multisig request is not allowed');
-			done();
+				done();
+			});
 		});
-	});
 
 		it('using empty object should fail', function (done) {
 			validParams.multisigAccountPublicKey = {};

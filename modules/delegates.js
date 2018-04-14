@@ -208,22 +208,22 @@ __private.forge = function (cb) {
 			return setImmediate(cb);
 		}
 
-			async.series({
-				getPeers: function (seriesCb) {
-					return modules.transport.getPeers({limit: constants.maxPeers}, seriesCb);
-				},
-				checkBroadhash: function (seriesCb) {
-					if (modules.transport.poorConsensus()) {
-						return setImmediate(seriesCb, ['Inadequate broadhash consensus', modules.transport.consensus(), '%'].join(' '));
-					} else {
-						return setImmediate(seriesCb);
-					}
+		async.series({
+			getPeers: function (seriesCb) {
+				return modules.transport.getPeers({limit: constants.maxPeers}, seriesCb);
+			},
+			checkBroadhash: function (seriesCb) {
+				if (modules.transport.poorConsensus()) {
+					return setImmediate(seriesCb, ['Inadequate broadhash consensus', modules.transport.consensus(), '%'].join(' '));
+				} else {
+					return setImmediate(seriesCb);
+				}
 			},
 			generateBlock: function (seriesCb) {
 				return modules.blocks.process.generateBlock(currentBlockData.keypair, currentBlockData.time, seriesCb);
-				}
-			}, function (err) {
-				if (err) {
+			}
+		}, function (err) {
+			if (err) {
 				library.logger.error('Failed to generate block within delegate slot', err);
 			} else {
 				var forgedBlock = modules.blocks.lastBlock.get();
@@ -598,7 +598,7 @@ __private.logLoadDelegatesError = function (err, cb) {
 Delegates.prototype.onBlockchainReady = function () {
 	__private.loaded = true;
 	__private.loadDelegates(function (err) {
-			if (err) {
+		if (err) {
 			jobsQueue.register('logLoadDelegatesError', function (jobsQueueCb) {
 				__private.logLoadDelegatesError(err, jobsQueueCb);
 			}, __private.forgeInterval);

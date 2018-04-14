@@ -589,15 +589,15 @@ Chain.prototype.deleteLastBlock = function (cb) {
 		[
 			function popLastBlock (waterCb) {
 	// Delete last block, replace last block with previous block, undo things
-	__private.popLastBlock(lastBlock, function (err, newLastBlock) {
-		if (err) {
-			library.logger.error('Error deleting last block', lastBlock);
-		} else {
+				__private.popLastBlock(lastBlock, function (err, newLastBlock) {
+					if (err) {
+						library.logger.error('Error deleting last block', lastBlock);
+					} else {
 			// Replace last block with previous
 						modules.blocks.lastBlock.set(newLastBlock);
-		}
+					}
 					return setImmediate(waterCb, err, newLastBlock);
-	});
+				});
 			},
 			function receiveTransactionsFromDeletedBlock (newLastBlock, waterCb) {
 				library.balancesSequence.add(function (balanceSequenceCb) {

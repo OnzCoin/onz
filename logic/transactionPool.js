@@ -419,23 +419,23 @@ TransactionPool.prototype.processBundled = function (cb) {
 		library.balancesSequence.add(function (balancesSequenceCb) {
 			__private.processVerifyTransaction(transaction, true, function (err, sender) {
 				// Remove bundled transaction after asynchronous processVerifyTransaction to avoid race conditions
-		self.removeBundledTransaction(transaction.id);
+				self.removeBundledTransaction(transaction.id);
 				// Delete bundled flag from transaction
 				// so it is qualified as "queued" in queueTransaction
-		delete transaction.bundled;
+				delete transaction.bundled;
 
-			if (err) {
-				library.logger.debug('Failed to process / verify bundled transaction: ' + transaction.id, err);
+				if (err) {
+					library.logger.debug('Failed to process / verify bundled transaction: ' + transaction.id, err);
 					return setImmediate(balancesSequenceCb);
-			} else {
-				self.queueTransaction(transaction, function (err) {
-					if (err) {
-						library.logger.debug('Failed to queue bundled transaction: ' + transaction.id, err);
-					}
+				} else {
+					self.queueTransaction(transaction, function (err) {
+						if (err) {
+							library.logger.debug('Failed to queue bundled transaction: ' + transaction.id, err);
+						}
 						return setImmediate(balancesSequenceCb);
-				});
-			}
-		});
+					});
+				}
+			});
 		}, eachSeriesCb);
 	}, function (err) {
 		return setImmediate(cb, err);
@@ -538,7 +538,7 @@ TransactionPool.prototype.undoUnconfirmedList = function (cb) {
 
 				if (err) {
 					library.logger.error('Failed to undo unconfirmed transaction: ' + transaction.id, err);
-				return setImmediate(eachSeriesCb);
+					return setImmediate(eachSeriesCb);
 				}
 				// Transaction successfully undone from unconfirmed states, try move it to queued list
 				library.balancesSequence.add(function (balancesSequenceCb) {
@@ -757,23 +757,23 @@ __private.applyUnconfirmedList = function (transactions, cb) {
 			return setImmediate(eachSeriesCb);
 		}
 		library.balancesSequence.add(function (balancesSequenceCb) {
-		__private.processVerifyTransaction(transaction, false, function (err, sender) {
-			if (err) {
-				library.logger.error('Failed to process / verify unconfirmed transaction: ' + transaction.id, err);
+			__private.processVerifyTransaction(transaction, false, function (err, sender) {
+				if (err) {
+					library.logger.error('Failed to process / verify unconfirmed transaction: ' + transaction.id, err);
 					self.removeQueuedTransaction(transaction.id);
 					return setImmediate(balancesSequenceCb);
-			}
-			modules.transactions.applyUnconfirmed(transaction, sender, function (err) {
-				if (err) {
-					library.logger.error('Failed to apply unconfirmed transaction: ' + transaction.id, err);
+				}
+				modules.transactions.applyUnconfirmed(transaction, sender, function (err) {
+					if (err) {
+						library.logger.error('Failed to apply unconfirmed transaction: ' + transaction.id, err);
 						self.removeQueuedTransaction(transaction.id);
 					} else {
 						// Transaction successfully applied to unconfirmed states, move it to unconfirmed list
 						self.addUnconfirmedTransaction(transaction);
-				}
+					}
 					return setImmediate(balancesSequenceCb);
+				});
 			});
-		});
 		}, eachSeriesCb);
 	}, cb);
 };

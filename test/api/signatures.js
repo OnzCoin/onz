@@ -28,10 +28,10 @@ function putDelegate (params, done) {
 before(function (done) {
 	var crediting = accounts;
 	async.eachSeries(crediting, function (account, eachCb) {
-	putTransaction({
-		secret: node.gAccount.password,
+		putTransaction({
+			secret: node.gAccount.password,
 			amount: 100 * node.normalizer,
-		recipientId: account.address
+			recipientId: account.address
 		}, eachCb);
 	}, function (err) {
 		return done(err);

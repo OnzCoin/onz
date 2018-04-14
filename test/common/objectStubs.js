@@ -1,6 +1,6 @@
 'use strict';
 
-var sinon = require('sinon');
+var randomstring = require('randomstring');
 
 var randomPeer = {
 	'broadhash': '198f2b61a8eb95fbeed58b8216780b68f697f26b849acf00c8c93bb9b24f783d',
@@ -31,5 +31,6 @@ function generateRandomActivePeer () {
 }
 
 module.exports = {
-	randomPeer: randomPeer
+	randomPeer: randomPeer,
+	generateRandomActivePeer: generateRandomActivePeer
 };
