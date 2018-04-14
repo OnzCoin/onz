@@ -6,6 +6,7 @@ var chai = require('chai');
 var expect = require('chai').expect;
 var Promise = require('bluebird');
 var _  = require('lodash');
+var common = require('./common.js');
 
 var application = require('./../common/application');
 
@@ -14,7 +15,7 @@ describe('multisignature', function () {
 	var library;
 
 	before('init sandboxed application', function (done) {
-		application.init({sandbox: {name: 'onz_test_multisignatures'}}, function (scope) {
+		application.init({sandbox: {name: 'lisk_test_multisignatures'}}, function (scope) {
 			library = scope;
 			done();
 		});
@@ -24,99 +25,14 @@ describe('multisignature', function () {
 		application.cleanup(done);
 	});
 
-	function forge (cb) {
-		function getNextForger (offset, cb) {
-			offset = !offset ? 1 : offset;
-			var last_block = library.modules.blocks.lastBlock.get();
-			var slot = slots.getSlotNumber(last_block.timestamp);
-			library.modules.delegates.generateDelegateList(last_block.height, null, function (err, delegateList) {
-				if (err) { return cb (err); }
-				var nextForger = delegateList[(slot + offset) % slots.delegates];
-				return cb(nextForger);
-			});
-		}
-
-		var transactionPool = library.rewiredModules.transactions.__get__('__private.transactionPool');
-		var keypairs = library.rewiredModules.delegates.__get__('__private.keypairs');
-
-		node.async.waterfall([ 
-			transactionPool.fillPool,
-			function (cb) {
-				getNextForger(null, function (delegatePublicKey) {
-					cb(null, delegatePublicKey);
-				});
-			},
-			function (delegate, seriesCb) {
-				var last_block = library.modules.blocks.lastBlock.get();
-				var slot = slots.getSlotNumber(last_block.timestamp) + 1;
-				var keypair = keypairs[delegate];
-				node.debug('		Last block height: ' + last_block.height + ' Last block ID: ' + last_block.id + ' Last block timestamp: ' + last_block.timestamp + ' Next slot: ' + slot + ' Next delegate PK: ' + delegate + ' Next block timestamp: ' + slots.getSlotTime(slot));
-				library.modules.blocks.process.generateBlock(keypair, slots.getSlotTime(slot), function (err) {
-					if (err) { return seriesCb(err); }
-					last_block = library.modules.blocks.lastBlock.get();
-					node.debug('		New last block height: ' + last_block.height + ' New last block ID: ' + last_block.id);
-					return seriesCb(err);
-				});
-			}
-		], function (err) {
-			cb(err);
-		});
-	}
-
-	function addTransaction (transaction, cb) {
-		// Add transaction to transactions pool - we use shortcut here to bypass transport module, but logic is the same
-		// See: modules.transport.__private.receiveTransaction
-		library.balancesSequence.add(function (sequenceCb) {
-			library.modules.transactions.processUnconfirmedTransaction(transaction, true, function (err) {
-				if (err) {
-					return setImmediate(sequenceCb, err.toString());
-				} else {
-					return setImmediate(sequenceCb, null, transaction.id);
-				}
-			});
-		}, cb);
-	}
-
-	function addTransactionsAndForge (transactions, cb) {
-		node.async.waterfall([
-			function addTransactions (waterCb) {
-				node.async.eachSeries(transactions, function (transaction, eachSeriesCb) {
-					addTransaction(transaction, eachSeriesCb);
-				}, waterCb);
-			},
-			function (waterCb) {
-				setTimeout(function () {
-					forge(waterCb);
-				}, 800);
-			}
-		], function (err) {
-			cb(err);
-		});
-	}
-
-	function getAccountFromDb (address) {
-		return Promise.all([
-			library.db.query('SELECT * FROM mem_accounts where address = \'' + address + '\''),
-			library.db.query('SELECT * FROM mem_accounts2multisignatures where "accountId" = \'' + address + '\''),
-			library.db.query('SELECT * FROM mem_accounts2u_multisignatures where "accountId" = \'' + address + '\'')
-		]).then(function (res) {
-			// Get the first row if resultant array is not empty
-			return {
-				mem_accounts: res[0].length > 0 ? res[0][0] : res[0],
-				mem_accounts2multisignatures: res[1],
-				mem_accounts2u_multisignatures: res[2]
-			};
-		});
-	}
-
-	describe('with ONZ sent to multisig account', function () {
+	describe('with funds sent to multisig account', function () {
 
 		var multisigAccount;
 
 		before('send funds to multisig account', function (done) {
 			multisigAccount = node.randomAccount();
-			var sendTransaction = node.onz.transaction.createTransaction(multisigAccount.address, 1000000000*100, node.gAccount.password);
-			addTransactionsAndForge([sendTransaction], done);
+			var sendTransaction = node.lisk.transaction.createTransaction(multisigAccount.address, 1000000000*100, node.gAccount.password);
+			common.addTransactionsAndForge(library, [sendTransaction], done);
 		});
 
 		describe('from multisig account', function () {
@@ -141,9 +57,9 @@ describe('multisignature', function () {
 						'+' + signer2.publicKey
 					];
 
-					multisigTransaction = node.onz.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
-					var sign1 = node.onz.multisignature.signTransaction(multisigTransaction, signer1.password);
-					var sign2 = node.onz.multisignature.signTransaction(multisigTransaction, signer2.password);
+					multisigTransaction = node.lisk.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
+					var sign1 = node.lisk.multisignature.signTransaction(multisigTransaction, signer1.password);
+					var sign2 = node.lisk.multisignature.signTransaction(multisigTransaction, signer2.password);
 
 					multisigTransaction.signatures = [sign1, sign2];
 					multisigTransaction.ready = true;
@@ -154,7 +70,7 @@ describe('multisignature', function () {
 					var accountRow;
 
 					before('get mem_account, mem_account2multisignature and mem_account2u_multisignature rows', function () {
-						return getAccountFromDb(multisigAccount.address).then(function (res) {
+						return common.getAccountFromDb(library, multisigAccount.address).then(function (res) {
 							accountRow = res;
 						});
 					});
@@ -223,9 +139,9 @@ describe('multisignature', function () {
 							'+' + signer3.publicKey,
 							'+' + signer4.publicKey
 						];
-						multisigTransaction2 = node.onz.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
-						var sign3 = node.onz.multisignature.signTransaction(multisigTransaction2, signer3.password);
-						var sign4 = node.onz.multisignature.signTransaction(multisigTransaction2, signer4.password);
+						multisigTransaction2 = node.lisk.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
+						var sign3 = node.lisk.multisignature.signTransaction(multisigTransaction2, signer3.password);
+						var sign4 = node.lisk.multisignature.signTransaction(multisigTransaction2, signer4.password);
 						multisigTransaction2.signatures = [sign3, sign4];
 						library.logic.transaction.process(multisigTransaction2, multisigSender, done);
 					});
@@ -248,14 +164,14 @@ describe('multisignature', function () {
 		});
 	});
 
-	describe('with ONZ sent to multisig account', function () {
+	describe('with funds sent to multisig account', function () {
 
 		var multisigAccount;
 
 		before('send funds to multisig account', function (done) {
 			multisigAccount = node.randomAccount();
-			var sendTransaction = node.onz.transaction.createTransaction(multisigAccount.address, 1000000000*100, node.gAccount.password);
-			addTransactionsAndForge([sendTransaction], done);
+			var sendTransaction = node.lisk.transaction.createTransaction(multisigAccount.address, 1000000000*100, node.gAccount.password);
+			common.addTransactionsAndForge(library, [sendTransaction], done);
 		});
 
 		describe('from multisig account', function () {
@@ -269,7 +185,7 @@ describe('multisignature', function () {
 				});
 			});
 
-			describe('after forging Block with multisig transaction', function () {
+			describe('after forging block with multisig transaction', function () {
 
 				var multisigTransaction;
 				var signer1 = node.randomAccount();
@@ -281,20 +197,20 @@ describe('multisignature', function () {
 						'+' + signer2.publicKey
 					];
 
-					multisigTransaction = node.onz.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
-					var sign1 = node.onz.multisignature.signTransaction(multisigTransaction, signer1.password);
-					var sign2 = node.onz.multisignature.signTransaction(multisigTransaction, signer2.password);
+					multisigTransaction = node.lisk.multisignature.createMultisignature(multisigAccount.password, null, keysgroup, 4, 2);
+					var sign1 = node.lisk.multisignature.signTransaction(multisigTransaction, signer1.password);
+					var sign2 = node.lisk.multisignature.signTransaction(multisigTransaction, signer2.password);
 
 					multisigTransaction.signatures = [sign1, sign2];
 					multisigTransaction.ready = true;
-					addTransactionsAndForge([multisigTransaction], done);
+					common.addTransactionsAndForge(library, [multisigTransaction], done);
 				});
 
 				describe('sender db rows', function () {
 					var accountRow;
 
 					before('get mem_account, mem_account2multisignature and mem_account2u_multisignature rows', function () {
-						return getAccountFromDb(multisigAccount.address).then(function (res) {
+						return common.getAccountFromDb(library, multisigAccount.address).then(function (res) {
 							accountRow = res;
 						});
 					});
@@ -378,7 +294,7 @@ describe('multisignature', function () {
 						var accountRow;
 
 						before('get mem_account, mem_account2multisignature and mem_account2u_multisignature rows', function () {
-							return getAccountFromDb(multisigAccount.address).then(function (res) {
+							return common.getAccountFromDb(library, multisigAccount.address).then(function (res) {
 								accountRow = res;
 							});
 						});

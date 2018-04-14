@@ -235,6 +235,10 @@ __private.receiveTransaction = function (transaction, peer, extraLogMessage, cb)
 		return setImmediate(cb, 'Invalid transaction body - ' + e.toString());
 	}
 
+	if (transaction.requesterPublicKey) {
+		return setImmediate(cb, 'Multisig request is not allowed');
+	}
+
 	library.balancesSequence.add(function (cb) {
 		library.logger.debug('Received transaction ' + transaction.id + ' from peer ' + peer.string);
 		modules.transactions.processUnconfirmedTransaction(transaction, true, function (err) {
@@ -364,6 +368,7 @@ Transport.prototype.getFromPeer = function (peer, options, cb) {
 	if (options.data) {
 		req.body = options.data;
 	}
+
 	popsicle.request(req)
 		.use(popsicle.plugins.parse(['json'], false))
 		.then(function (res) {
@@ -581,7 +586,7 @@ Transport.prototype.internal = {
 			return setImmediate(cb, null, {blocks: data});
 		});
 	},
-	
+
 	postBlock: function (block, peer, extraLogMessage, cb) {
 		try {
 			block = library.logic.block.objectNormalize(block);

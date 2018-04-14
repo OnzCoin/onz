@@ -216,6 +216,11 @@ Delegate.prototype.checkConfirmed = function (trs, cb) {
  */
 Delegate.prototype.checkUnconfirmed = function (trs, cb) {
 	self.checkDuplicates(trs, 'u_username', 'u_isDelegate', function (err) {
+		if (err && exceptions.delegates.indexOf(trs.id) > -1) {
+			library.logger.debug(err);
+			library.logger.debug(JSON.stringify(trs));
+			err = null;
+		}
 		return setImmediate(cb, err, trs);
 	});
 };
@@ -232,15 +237,10 @@ Delegate.prototype.apply = function (trs, block, sender, cb) {
 	var data = {
 		publicKey: trs.senderPublicKey,
 		address: sender.address,
-		u_isDelegate: 0,
 		isDelegate: 1,
-		vote: 0
+		vote: 0,
+		username: trs.asset.delegate.username
 	};
-
-	if (trs.asset.delegate.username) {
-		data.u_username = null;
-		data.username = trs.asset.delegate.username;
-	}
 
 	async.series([
 		function (seriesCb) {
@@ -263,15 +263,11 @@ Delegate.prototype.apply = function (trs, block, sender, cb) {
 Delegate.prototype.undo = function (trs, block, sender, cb) {
 	var data = {
 		address: sender.address,
-		u_isDelegate: 1,
 		isDelegate: 0,
-		vote: 0
+		vote: 0,
+		username: null
 	};
 
-	if (!sender.nameexist && trs.asset.delegate.username) {
-		data.username = null;
-		data.u_username = trs.asset.delegate.username;
-	}
 
 	modules.accounts.setAccountAndGet(data, cb);
 };
@@ -288,13 +284,8 @@ Delegate.prototype.applyUnconfirmed = function (trs, sender, cb) {
 		publicKey: trs.senderPublicKey,
 		address: sender.address,
 		u_isDelegate: 1,
-		isDelegate: 0
+		u_username: trs.asset.delegate.username
 	};
-
-	if (trs.asset.delegate.username) {
-		data.username = null;
-		data.u_username = trs.asset.delegate.username;
-	}
 
 	async.series([
 		function (seriesCb) {
@@ -318,13 +309,9 @@ Delegate.prototype.undoUnconfirmed = function (trs, sender, cb) {
 	var data = {
 		address: sender.address,
 		u_isDelegate: 0,
-		isDelegate: 0
+		isDelegate: 0,
+		u_username: null
 	};
-
-	if (trs.asset.delegate.username) {
-		data.username = null;
-		data.u_username = null;
-	}
 
 	modules.accounts.setAccountAndGet(data, cb);
 };

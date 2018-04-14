@@ -1,11 +1,11 @@
 {
     "port": 10998,
     "address": "0.0.0.0",
-    "version": "0.9.13",
+    "version": "0.9.14",
     "minVersion": ">=0.9.13",
     "fileLogLevel": "info",
     "logFileName": "logs/onz.log",
-    "consoleLogLevel": "none",
+    "consoleLogLevel": "debug",
     "trustProxy": false,
     "topAccounts": false,
     "cacheEnabled": false,
@@ -104,7 +104,7 @@
     },
     "dapp": {
         "masterrequired": true,
-        "masterpassword": "",
+        "masterpassword": "8q28Gx4qkNfh",
         "autoexec": []
     },
     "nethash": "aa14b4d84260e00b6fc033c022a25965629ab0e8a4aafc77e64cad4cf0dc2e00"

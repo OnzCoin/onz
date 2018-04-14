@@ -13,6 +13,23 @@ var randomPeer = {
 	'version': '0.0.0'
 };
 
+function generateRandomActivePeer () {
+	var randomDigits = function (length) {
+		return randomstring.generate({charset: 'numeric', length: length});
+	};
+	return {
+		'broadhash': randomstring.generate(64),
+		'dappid': null,
+		'height': randomDigits(4),
+		'ip': randomDigits(3) + '.' + randomDigits(3) + '.' + randomDigits(3) + '.' + randomDigits(3),
+		'os': randomstring.generate(10),
+		'port': randomstring.generate({charset: 'numeric', length: 4}),
+		'state': 2,
+		'nonce': randomstring.generate(16),
+		'version': randomDigits(1) + '.' + randomDigits(1) + '.' + randomDigits(1)
+	};
+}
+
 module.exports = {
 	randomPeer: randomPeer
 };
