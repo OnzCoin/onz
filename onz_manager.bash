@@ -324,6 +324,20 @@ case $1 in
       echo ""
       echo "onz successfully installed"
     ;;
+    "logs")
+      echo "Real time logs for ONZ process... [CTRL+C to exit]"
+      tail -f logs/onz.log
+    ;;
+    "lastlog")
+      echo ""
+      echo ""
+      echo "Last 500 lines from logs/onz.log"
+      echo "##################################"
+      tail -n 500 logs/onz.log
+      echo "##################################"
+      echo ""
+      echo ""
+    ;;
     "update_client")
       start_log
       stop_onz
@@ -370,7 +384,7 @@ case $1 in
     ;;
 
 *)
-    echo 'Available options: install, reload (stop/start), rebuild (official snapshot), clean_start (drop database), start, stop, update_client'
+    echo 'Available options: install, reload (stop/start), rebuild (official snapshot), clean_start (drop database), logs (real time logging), lastlog (prints lastest logs), start, stop, update_client'
     echo 'Usage: ./onz_manager.bash install'
     exit 1
 ;;
