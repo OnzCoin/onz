@@ -7,9 +7,9 @@ Onz is a next generation crypto-currency and decentralized application platform,
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 [![Join the chat at https://gitter.im/OnzCoin/onz](https://badges.gitter.im/OnzCoin/onz.svg)](https://gitter.im/OnzCoin/onz?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**NOTE:** The following information is applicable to: **Ubuntu 14.04, 16.04 (LTS) or 16.10 - x86_64**.
+## Prerequisites - In order
 
-## Prerequisites
+This sections provides details on what you need install on your system in order to run Onz.
 
 - Make sure the following ports are opened.
 

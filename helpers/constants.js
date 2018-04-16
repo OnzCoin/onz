@@ -46,6 +46,7 @@ module.exports = {
 	activeDelegates: 101,
 	maxVotesPerTransaction: 33,
 	maxVotesPerAccount: 11,
+	blockSlotWindow: 5,
 	addressLength: 208,
 	blockHeaderLength: 248,
 	blockReceiptTimeOut: 20, // 2 blocks

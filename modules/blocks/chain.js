@@ -271,10 +271,8 @@ Chain.prototype.applyGenesisBlock = function (block, cb) {
 	}, function (err) {
 		if (err) {
 			// If genesis block is invalid, kill the node...
-			console.log("Invalid genesis block: " + JSON.stringify(err));
 			return process.exit(0);
 		} else {
-			console.log("Valid genesis block");
 			// Set genesis block as last block
 			modules.blocks.lastBlock.set(block);
 			// Tick round
@@ -342,9 +340,6 @@ Chain.prototype.applyBlock = function (block, broadcast, saveBlock, cb) {
 	// Transactions to rewind in case of error.
 	var appliedTransactions = {};
 
-	// List of unconfirmed transactions ids.
-	var unconfirmedTransactionIds;
-
 	async.series({
 		// Rewind any unconfirmed transactions before applying block.
 		// TODO: It should be possible to remove this call if we can guarantee that only this function is processing transactions atomically. Then speed should be improved further.
@@ -357,7 +352,6 @@ Chain.prototype.applyBlock = function (block, broadcast, saveBlock, cb) {
 
 					return process.exit(0);
 				} else {
-					unconfirmedTransactionIds = ids;
 					return setImmediate(seriesCb);
 				}
 			});
@@ -378,12 +372,6 @@ Chain.prototype.applyBlock = function (block, broadcast, saveBlock, cb) {
 
 						appliedTransactions[transaction.id] = transaction;
 
-						// Remove the transaction from the node queue, if it was present.
-						var index = unconfirmedTransactionIds.indexOf(transaction.id);
-						if (index >= 0) {
-							unconfirmedTransactionIds.splice(index, 1);
-						}
-
 						return setImmediate(eachSeriesCb);
 					});
 				});
@@ -392,9 +380,9 @@ Chain.prototype.applyBlock = function (block, broadcast, saveBlock, cb) {
 					// Rewind any already applied unconfirmed transactions.
 					// Leaves the database state as per the previous block.
 					async.eachSeries(block.transactions, function (transaction, eachSeriesCb) {
-						modules.accounts.getAccount({publicKey: transaction.senderPublicKey}, function (err, sender) {
-							if (err) {
-								return setImmediate(eachSeriesCb, err);
+						modules.accounts.getAccount({publicKey: transaction.senderPublicKey}, function (accountError, sender) {
+							if (accountError) {
+								return setImmediate(eachSeriesCb, accountError);
 							}
 							// The transaction has been applied?
 							if (appliedTransactions[transaction.id]) {
@@ -404,7 +392,14 @@ Chain.prototype.applyBlock = function (block, broadcast, saveBlock, cb) {
 								return setImmediate(eachSeriesCb);
 							}
 						});
-					}, function (err) {
+					}, function (seriesError) {
+						if (seriesError) {
+							// Fatal error, memory tables will be inconsistent
+							library.logger.error('Failed to undo unconfirmed block transactions list', seriesError);
+
+							return process.exit(0);
+						}
+
 						return setImmediate(seriesCb, err);
 					});
 				} else {
@@ -471,22 +466,14 @@ Chain.prototype.applyBlock = function (block, broadcast, saveBlock, cb) {
 				// DATABASE write. Update delegates accounts
 				modules.rounds.tick(block, seriesCb);
 			}
-		},
-		// Push back unconfirmed transactions list (minus the one that were on the block if applied correctly).
-		// TODO: See undoUnconfirmedList discussion above.
-		applyUnconfirmedIds: function (seriesCb) {
-			// DATABASE write
-			modules.transactions.applyUnconfirmedIds(unconfirmedTransactionIds, function (err) {
-				return setImmediate(seriesCb, err);
-			});
-		},
+		}
 	}, function (err) {
 		// Allow shutdown, database writes are finished.
 		modules.blocks.isActive.set(false);
 
 		// Nullify large objects.
 		// Prevents memory leak during synchronisation.
-		appliedTransactions = unconfirmedTransactionIds = block = null;
+		appliedTransactions = block = null;
 
 		// Finish here if snapshotting.
 		// FIXME: Not the best place to do that
@@ -598,16 +585,37 @@ Chain.prototype.deleteLastBlock = function (cb) {
 		return setImmediate(cb, 'Cannot delete genesis block');
 	}
 
+	async.waterfall(
+		[
+			function popLastBlock (waterCb) {
 	// Delete last block, replace last block with previous block, undo things
-	__private.popLastBlock(lastBlock, function (err, newLastBlock) {
-		if (err) {
-			library.logger.error('Error deleting last block', lastBlock);
-		} else {
+				__private.popLastBlock(lastBlock, function (err, newLastBlock) {
+					if (err) {
+						library.logger.error('Error deleting last block', lastBlock);
+					} else {
 			// Replace last block with previous
-			lastBlock = modules.blocks.lastBlock.set(newLastBlock);
-		}
-		return setImmediate(cb, err, lastBlock);
-	});
+						modules.blocks.lastBlock.set(newLastBlock);
+					}
+					return setImmediate(waterCb, err, newLastBlock);
+				});
+			},
+			function receiveTransactionsFromDeletedBlock (newLastBlock, waterCb) {
+				library.balancesSequence.add(function (balanceSequenceCb) {
+					modules.transactions.receiveTransactions(
+						lastBlock.transactions.reverse(),
+						false,
+						balanceSequenceCb
+					);
+				}, function (err) {
+					if (err) {
+						library.logger.error('Error receiving transactions after deleting block', err);
+					}
+					return setImmediate(waterCb, null, newLastBlock);
+				});
+			}
+		],
+		cb
+	);
 };
 
 /**
